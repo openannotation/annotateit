@@ -1,0 +1,5 @@
+/pyenv
+/annotateit.egg-info
+/instance/annotateit.cfg
+/instance/*.db
+*.pyc

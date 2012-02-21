@@ -5,6 +5,7 @@ import readline
 import sys
 
 import annotateit
+from annotateit import db
 from annotateit.model import Consumer, User
 
 if __name__ == '__main__':
@@ -38,8 +39,6 @@ if __name__ == '__main__':
         ckey = 'annotateit'
 
     with app.test_request_context():
-        db = app.extensions['sqlalchemy'].db
-
         print("\nCreating admin user... ", end="")
 
         u = User(username, email, password)

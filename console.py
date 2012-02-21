@@ -1,22 +1,16 @@
 from IPython import embed
 
-from flask import request
-
 import annotateit
-from annotator import auth
-
-app = annotateit.create_app()
-ctx = app.test_request_context()
-ctx.push()
-
 from annotateit import model, db, es
 
-token = auth.generate_token(model.Consumer.fetch('annotateit'), 'admin')
+app = annotateit.create_app()
 
-ctx.pop()
+with app.test_request_context():
+    from annotator import auth
+    consumer = model.Consumer.fetch('annotateit')
+    token = auth.generate_token(consumer, 'admin')
+    headers = auth.headers_for_token(token).items()
 
 # Push new test context with auth headers attached
-ctx = app.test_request_context(headers=auth.headers_for_token(token).items())
-ctx.push()
-
-embed(display_banner=False)
+with app.test_request_context(headers=headers):
+    embed(display_banner=False)

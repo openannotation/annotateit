@@ -17,9 +17,6 @@ class TestCase(object):
         self.ctx = self.app.test_request_context()
         self.ctx.push()
 
-        self.db = self.app.extensions['sqlalchemy'].db
-        self.es = self.app.extensions['pyes']
-
     def teardown(self):
         self.ctx.pop()
         annotateit.drop_all(self.app)

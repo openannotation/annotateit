@@ -10,3 +10,6 @@ MOUNT_USER = '/user'
 MOUNT_HOME = '/'
 
 DEFAULT_MAIL_SENDER = ('AnnotateIt', 'no-reply@annotateit.org')
+
+AUTH_ON = True
+AUTHZ_ON = True

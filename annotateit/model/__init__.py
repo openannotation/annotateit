@@ -1,4 +1,5 @@
-__all__ = ['Consumer', 'User']
+__all__ = ['Annotation', 'Consumer', 'User']
 
 from .consumer import Consumer
 from .user import User
+from annotator.annotation import Annotation

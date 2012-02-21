@@ -11,8 +11,8 @@ from flaskext.mail import Message
 import itsdangerous
 import sqlalchemy
 
-from annotateit import util
-from annotateit.model import User, Consumer
+from annotateit import db, mail, util
+from annotateit.model import Annotation, User, Consumer
 
 user = Blueprint('user', __name__)
 
@@ -108,10 +108,10 @@ def signup():
 @util.require_user
 def home():
     bookmarklet = render_template('bookmarklet.js', root=request.host_url)
-    annotations = g.Annotation.search(user=g.session_user.username,
-                                      _user_id=g.session_user.username,
-                                      _consumer_key='annotateit',
-                                      limit=20)
+    annotations = Annotation.search(user=g.session_user.username,
+                                    _user_id=g.session_user.username,
+                                    _consumer_key='annotateit',
+                                    limit=20)
 
     return render_template('user/home.html',
                            user=g.session_user,
@@ -136,8 +136,8 @@ def delete_consumer(key):
     if not c:
         flash("Couldn't delete consumer '{0}' because I couldn't find it!".format(key), 'error')
     else:
-        g.db.session.delete(c)
-        g.db.session.commit()
+        db.session.delete(c)
+        db.session.commit()
 
     return redirect(url_for('.home'))
 
@@ -181,7 +181,7 @@ def reset_password(code):
 
         if user:
             user.password = form.password.data
-            g.db.session.commit()
+            db.session.commit()
             flash('Password successfully reset: please log in.', 'success')
         else:
             flash('Username not found in our database!', 'error')
@@ -222,7 +222,7 @@ def _send_reset_password_email(user):
     msg = Message("Reset password", recipients=[user.email])
     msg.body = body
 
-    g.mail.send(msg)
+    mail.send(msg)
 
 def _generate_reset_password_code(user):
     u = itsdangerous.URLSafeTimedSerializer(current_app.secret_key, salt='reset_password')

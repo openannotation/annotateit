@@ -9,10 +9,7 @@ app = annotateit.create_app()
 ctx = app.test_request_context()
 ctx.push()
 
-from annotateit import model
-
-db = app.extensions['sqlalchemy'].db
-es = app.extensions['pyes']
+from annotateit import model, db, es
 
 token = auth.generate_token(model.Consumer.fetch('annotateit'), 'admin')
 

@@ -15,7 +15,7 @@ from flaskext.sqlalchemy import SQLAlchemy
 from flaskext.mail import Mail
 import pyes
 
-from annotator import auth, authz, annotation, store
+from annotator import es, auth, authz, annotation, store
 
 db = SQLAlchemy()
 mail = Mail()
@@ -37,8 +37,7 @@ def create_app():
     app.extensions['mail'] = mail
 
     # Configure ES
-    from . import model
-    app.extensions['pyes'] = pyes.ES(app.config['ELASTICSEARCH_HOST'])
+    es.init_app(app)
 
     # Mount controllers
     from annotateit import user, home
@@ -52,12 +51,6 @@ def create_app():
 
     @app.before_request
     def before_request():
-        g.db = current_app.extensions['sqlalchemy'].db
-        g.es = current_app.extensions['pyes']
-        g.mail = current_app.extensions['mail']
-
-        g.Annotation = annotation.make_model(g.es, index=current_app.config['ELASTICSEARCH_INDEX'])
-
         # User from session
         g.session_user = user.get_current_user()
 
@@ -81,14 +74,12 @@ def create_app():
     return app
 
 def create_indices(app):
-    Annotation = annotation.make_model(app.extensions['pyes'],
-                                       index=app.config['ELASTICSEARCH_INDEX'])
+    from .model import Annotation
     with app.test_request_context():
         Annotation.create_all()
 
 def drop_indices(app):
-    Annotation = annotation.make_model(app.extensions['pyes'],
-                                       index=app.config['ELASTICSEARCH_INDEX'])
+    from .model import Annotation
     with app.test_request_context():
         Annotation.drop_all()
 

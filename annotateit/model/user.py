@@ -17,8 +17,8 @@ class User(db.Model):
     consumers = db.relationship('Consumer', backref='user', lazy='dynamic')
 
     @classmethod
-    def fetch(cls, id):
-        return cls.query.filter_by(id=id).first()
+    def fetch(cls, username):
+        return cls.query.filter_by(username=username).first()
 
     def __init__(self, username, email, password=None):
         self.username = username

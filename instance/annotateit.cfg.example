@@ -5,10 +5,6 @@ DEBUG = False
 # ELASTICSEARCH_HOST = '127.0.0.1:9200'
 # ELASTICSEARCH_INDEX = 'annotateit'
 
-# MOUNT_STORE = '/api'
-# MOUNT_USER = '/user'
-# MOUNT_HOME = '/'
-
 # SECRET_KEY = 'IMPORTANT-set-me-to-a-random-string'
 
 ## Sign up at http://recaptcha.net

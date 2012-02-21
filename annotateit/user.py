@@ -16,13 +16,6 @@ from annotateit.model import Annotation, User, Consumer
 
 user = Blueprint('user', __name__)
 
-def get_current_user():
-    username = session.get('user')
-    if not username:
-        return None
-    else:
-        return User.query.filter_by(username=username).first()
-
 ## WTForms classes
 
 class LoginForm(Form):
@@ -177,7 +170,7 @@ def reset_password(code):
     form = ResetPasswordForm()
 
     if form.validate_on_submit():
-        user = User.query.filter_by(username=username).first()
+        user = User.fetch(username)
 
         if user:
             user.password = form.password.data

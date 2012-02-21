@@ -1,6 +1,7 @@
 from . import TestCase, helpers as h
 import re
 
+from annotateit import mail
 from annotateit.model import User
 
 from flask import current_app, url_for
@@ -47,7 +48,6 @@ class TestUser(TestCase):
 
     def test_reset_password(self):
         """Send email if user in database"""
-        mail = current_app.extensions['mail']
         with mail.record_messages() as outbox:
             self.cli.post(url_for('user.reset_password_request'),
                           data={'login': 'test@example.com'})

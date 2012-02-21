@@ -10,13 +10,10 @@ __all__ = ['__version__', '__license__', '__author__',
            'create_all', 'drop_all']
 
 from flask import Flask
-from flask import g, current_app, request
 from flaskext.sqlalchemy import SQLAlchemy
 from flaskext.mail import Mail
-import pyes
 
-from annotator import es, auth, authz, annotation, store
-
+from annotator import es # ElasticSearch object
 db = SQLAlchemy()
 mail = Mail()
 
@@ -39,37 +36,14 @@ def create_app():
     # Configure ES
     es.init_app(app)
 
-    # Mount controllers
-    from annotateit import user, home
+    # Mount views
+    from annotator import store
+    from annotateit import user, main
+    app.register_blueprint(store.store, url_prefix='/api')
+    app.register_blueprint(user.user, url_prefix='/user')
+    app.register_blueprint(main.main)
 
-    if app.config['MOUNT_STORE']:
-        app.register_blueprint(store.store, url_prefix=app.config['MOUNT_STORE'])
-    if app.config['MOUNT_USER']:
-        app.register_blueprint(user.user, url_prefix=app.config['MOUNT_USER'])
-    if app.config['MOUNT_HOME']:
-        app.register_blueprint(home.home, url_prefix=app.config['MOUNT_HOME'])
-
-    @app.before_request
-    def before_request():
-        # User from session
-        g.session_user = user.get_current_user()
-
-        # User from X-Annotator headers for API
-        username = request.headers.get(auth.HEADER_PREFIX + 'user-id')
-        if username:
-            g.user = model.User.query.filter_by(username=username).first()
-        else:
-            g.user = None
-
-        # Consumer from X-Annotator headers for API
-        consumerkey = request.headers.get(auth.HEADER_PREFIX + 'consumer-key')
-        if consumerkey:
-            g.consumer = model.Consumer.fetch(consumerkey)
-        else:
-            g.consumer = None
-
-        g.auth = auth.Authenticator(model.Consumer.fetch)
-        g.authorize = authz.authorize
+    app.before_request(main.before_request)
 
     return app
 

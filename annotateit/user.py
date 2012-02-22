@@ -100,7 +100,7 @@ def signup():
 @user.route('/home')
 @util.require_user
 def home():
-    bookmarklet = render_template('bookmarklet.js', root=request.host_url)
+    bookmarklet = render_template('bookmarklet.js', root=request.host_url.rstrip('/'))
     annotations = Annotation.search(user=g.session_user.username,
                                     _user_id=g.session_user.username,
                                     _consumer_key='annotateit',

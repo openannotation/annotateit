@@ -9,6 +9,10 @@ __all__ = ['__version__', '__license__', '__author__',
            'create_indices', 'drop_indices',
            'create_all', 'drop_all']
 
+import logging
+from logging import Formatter
+from logging.handlers import SMTPHandler
+
 from flask import Flask
 from flaskext.sqlalchemy import SQLAlchemy
 from flaskext.mail import Mail
@@ -35,6 +39,9 @@ def create_app():
 
     # Configure ES
     es.init_app(app)
+
+    # Configure logging
+    _configure_logging(app)
 
     # Mount views
     from annotator import store
@@ -74,3 +81,32 @@ def create_all(app):
 def drop_all(app):
     drop_indices(app)
     drop_db(app)
+
+def _configure_logging(app):
+    admins = app.config.get('ADMINS')
+
+    if app.debug or admins is None:
+        return
+
+    host = app.config.get('MAIL_SERVER', 'localhost')
+    port = app.config.get('MAIL_PORT', 25)
+
+    mail_handler = SMTPHandler((host, port),
+                               'AnnotateIt Logger <sysadmin@annotateit.org>',
+                               admins,
+                               'AnnotateIt Error')
+
+    mail_handler.setLevel(logging.ERROR)
+    mail_handler.setFormatter(Formatter('''
+Message type:       %(levelname)s
+Location:           %(pathname)s:%(lineno)d
+Module:             %(module)s
+Function:           %(funcName)s
+Time:               %(asctime)s
+
+Message:
+
+%(message)s
+'''))
+
+    app.logger.addHandler(mail_handler)

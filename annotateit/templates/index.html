@@ -3,12 +3,50 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+  <ul class="notification">
+    <li class="success">
+      Congratulations, you're looking at the newly upgraded AnnotateIt.
+      Most old data should have been migrated, but we've had to leave a few bits and pieces behind.
+      If you have any issues (can't login, annotations lost, etc) don't hesitate to contact
+      <script>
+      (function (){var i,j,x,y,x=
+      "x=\"783d22413e4070413c3e343427472c66403e4070403d413f406e403f406f413e3c6f41" +
+      "41413c4043413e403f3c423c3c3d6d403b3c3a4042412c473434273b382b462328437e243f" +
+      "7a5c223d786f3c6f4070413c40413f6d3c3c3d6f403b406f406f4070413e403b413e407041" +
+      "3c3e3a403c403f40403d6e3f6d3c3c406e403b4043406d413e40703d6b403b406f406f4070" +
+      "413e403b6d6b7a6f32312f3135343427387d216c7d7e70406c4040406f3c6f4070413c4041" +
+      "3d6d3c70403b3d6f3c3c3c433d6c3d3a3d6c2c66453532254731314570797c323a4070406c" +
+      "40404071786f76383434274673453a4773327c797045313147353225452c7c3273363c3333" +
+      "452935322573473a45734634342738766f78717e72457335473c3337342735322535472178" +
+      "6f7d3374327e4b7c6b726d383434274735353225373427334573474874373745333e3e3573" +
+      "36727e71786f76383434273278737738727e6b574774327c7970373427333e3e4735734572" +
+      "7e3272317d4a6e6d784c7b6a716c37234673263234347244717d70776e7537234572443946" +
+      "72317b786f443223316e796a6c7c6e777e462344303046343427443b382b45353225292945" +
+      "412f7e2e6b766769796b747b437e412d2d4321412834342738382b3273316e6d784c7b6a71" +
+      "4c76787b6f377077727b7d6335254634343427443d42463473323b3c4573316f72443a3649" +
+      "7375786c346d746f787a59433121413a3f4331702f383942702e6c6f4139332f6f2e7a476b" +
+      "6a754978676e69347e4370232f31316f416e7a6d746b72347e426f4136436f2e78756c7643" +
+      "6766714574636a65307a3f6c7d2b2d2d6b3d6a766970676e307a3e6b3d323f6b2a7471683d" +
+      "2b7a2a67726365756770773f7a3d29293f7b3d24213532252f702e6b6a754978676e692872" +
+      "6f663b2978286570616373656e753d783b27273d793b5c227b212b6c2a6766714574636a45" +
+      "6f7174683069706b7476553f2d7b3d363b3f2d6c2b34353e6c2a686b3d362f2b6b2a6f4372" +
+      "6168436d6f72662e676e697274533d2b793b34393d2b6a2932333c6a2866693b322d296928" +
+      "744165646f43726168632e783d6a7b292b2b693b6874676e656c2e783c693b303d797d296a" +
+      "286564223b793d27273b666f7228693d303b693c782e6c656e6774683b692b3d3733297b66" +
+      "6f72286a3d4d6174682e6d696e28782e6c656e6774682c692b3733293b2d2d6a3e3d693b29" +
+      "7b792b3d782e636861724174286a293b7d7d793b\";y='';for(i=0;i<x.length;i+=2){y" +
+      "+=unescape('%'+x.substr(i,2));}y";
+      while(x=eval(x));})();
+      </script>.
+    </li>
+  </ul>
+
     <section>
       <div class="primary">
         <h2>Annotate anything</h2>
         <p>
           Now you can annotate anything, anywhere on the web, by
-          <a href="{{url_for('user.signup')}}">signing up</a> 
+          <a href="{{url_for('user.signup')}}">signing up</a>
           and installing our bookmarklet!
         </p>
         <ul>
@@ -31,9 +69,9 @@
         <p>
           The Annotator is a Javascript tool that can be added to any webpage
           to allow annotation. Annotations can have tags,
-          <a href="http://daringfireball.com/projects/markdown">Markdown</a> content, 
-          per-annotation permissions and more. See a 
-          <a href="http://okfn.github.com/annotator/">live demonstration</a> 
+          <a href="http://daringfireball.com/projects/markdown">Markdown</a> content,
+          per-annotation permissions and more. See a
+          <a href="http://okfn.github.com/annotator/">live demonstration</a>
           or learn more in the <a href="#develop">developers section</a> below.
         </p>
       </div>
@@ -44,14 +82,14 @@
           <img src="/static/images/thumb-editor.png" alt="Save annotations to AnnotateIt" height="128" width="175" />
         </div>
         <p>
-          The bookmarklet allows you to add Annotator to any 
+          The bookmarklet allows you to add Annotator to any
           web page and save your annotations to AnnotateIt.
-          Check out the 
+          Check out the
           <a href="http://okfn.github.com/annotator/bookmarklet">
             Bookmarklet demo
-          </a> 
-          or get your own bookmarklet now by 
-          <a href="{{url_for('user.signup')}}">signing up</a> 
+          </a>
+          or get your own bookmarklet now by
+          <a href="{{url_for('user.signup')}}">signing up</a>
           for an account.
         </p>
       </div>

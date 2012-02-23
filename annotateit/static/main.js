@@ -1,48 +1,26 @@
 jQuery(function ($) {
-	var formMap = {
-		'#login':  $('#sign-up'),
-		'#sign-up': $('#login').hide()
-	};
+  function scrollTo(offset) {
+    if (offset.top) {
+      $('body').animate({
+        scrollTop: offset.top - 10
+      }, 300);
+    }
+  }
 
-	function toggleForms(selector, callback) {
-		formMap[selector].fadeOut(100, function () {
-			$(selector).fadeIn();
-			callback && callback();
-		});
-	}
+  $('nav').delegate('a', 'click', function (event) {
+    var section = $(this.hash),
+      offset;
 
-	function scrollTo(offset) {
-		if (offset.top) {
-			$('body').animate({
-				scrollTop: offset.top - 10
-			}, 300);
-		}
-	}
-
-	$('a[href^=#login], a[href^=#sign-up]').click(function (event) {
-		toggleForms(this.hash);
-		event.preventDefault();
-	});
-
-	$('nav').delegate('a', 'click', function (event) {
-		var section = $(this.hash),
-			offset;
-
-		if (this.hash === '#login' || this.hash === '#sign-up') {
-			toggleForms(this.hash, function () {
-				scrollTo(section.offset());
-			});
-		} else {
-			scrollTo(section.offset());
-		}
-		
-		event.preventDefault();
-	});
+    scrollTo(section.offset());
+    event.preventDefault();
+  });
 
   $('.js-relative-date').each(function () {
     m = moment($(this).attr('datetime'));
     $(this).text(m.fromNow());
   });
+
+  $('.grabfocus').eq(0).focus();
 });
 
 (function (hijs) {

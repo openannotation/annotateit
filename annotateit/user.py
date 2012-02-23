@@ -91,7 +91,7 @@ def signup():
         return redirect(url_for('.home'))
 
     if request.method == 'POST':
-        flash('Errors found while attempting to sign up!')
+        flash('Errors found while attempting to sign up!', 'error')
 
     captcha = 'RECAPTCHA_PUBLIC_KEY' in current_app.config
 

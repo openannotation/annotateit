@@ -18,3 +18,7 @@ class TestUser(TestCase):
     def test_null_password(self):
         u = User('joe', 'joe@bloggs.com')
         h.assert_false(u.check_password('foo'))
+
+    def test_gravatar_url(self):
+        u = User('joe', 'joe@bloggs.com')
+        h.assert_equal(u.gravatar_url, 'http://www.gravatar.com/avatar/011b2f33289a5f9941e457bdd1e549ff?d=mm')

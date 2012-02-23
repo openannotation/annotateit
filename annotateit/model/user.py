@@ -1,3 +1,4 @@
+from hashlib import md5
 from datetime import datetime
 from werkzeug import generate_password_hash, check_password_hash
 
@@ -38,3 +39,9 @@ class User(db.Model):
         if not self.password_hash:
             return False
         return check_password_hash(self.password_hash, password)
+
+    @property
+    def gravatar_url(self):
+        hsh = md5(self.email.strip().lower()).hexdigest()
+        url = 'http://www.gravatar.com/avatar/{hash}?d=mm'.format(hash=hsh)
+        return url

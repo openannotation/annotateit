@@ -1,0 +1,30 @@
+{% macro render_annotation(annotation, user=None) %}
+  <div class='annotation' id="annotation-{{ annotation['id'] }}">
+    <div class='whowhere'>
+      {% if user %}
+        <img src='{{ user.gravatar_url }}&amp;s=48'>
+      {% else %}
+        <img src='http://www.gravatar.com/avatar?d=mm&amp;f=y&amp;s=48'>
+      {% endif %}
+      <h3>
+        {{ annotation['user'] }}<br>
+        <span>
+        {% if 'uri' in annotation %}
+          on
+          <a href="{{annotation['uri']}}">{{annotation['uri'] | truncate(50, killwords=True)}}</a>
+        {% endif %}
+        </span>
+      </h3>
+    </div>
+    <div class='what'>
+      {% if annotation['text'] %}
+        <p class="text">{{ annotation['text'] }}</p>
+      {% else %}
+        <p class="null-text">No annotation text; highlight only.</p>
+      {% endif %}
+      <p class="meta">
+        <time class="js-relative-date" datetime="{{ annotation['created'] }}" title="{{ annotation['created'] }}">{{ annotation['created'] }}</time> on &ldquo;<span class="quote">{{ annotation['quote'] | truncate(50) }}</span>&rdquo;
+      </p>
+    </div>
+  </div>
+{% endmacro %}

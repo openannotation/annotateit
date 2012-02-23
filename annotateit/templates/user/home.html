@@ -80,29 +80,14 @@
 
 <section>
   <h2>Recent annotations</h2>
-
-  <ul class="annotations">
+  {% from "_annotation.html" import render_annotation %}
+  <div class="recent-annotations">
   {% for anno in annotations %}
-    <li>
-      <div class="text">{{anno.get('text', '') | truncate(50)}}</div>
-      <div class="source">
-        <q class="quote">{{anno.get('quote', '') | truncate(50)}}</q>
-        {% if 'uri' in anno %}
-          at
-          <a href="{{anno['uri']}}">{{anno['uri'] | truncate(50, killwords=True)}}</a>
-        {% endif %}
-      </div>
-      <div class="meta">
-        <span class="user">{{anno.get('user', '[Unknown user]')}}</span> &ndash;
-        <span class="created">
-          {{anno.get('created', '[No created date]')}}
-        </span>
-      </div>
-    </li>
+      {{ render_annotation(anno, user) }}
   {% else %}
-    <li><em>No recent annotations.</em></li>
+    <p><em>No recent annotations.</em></p>
   {% endfor %}
-  </ul>
+  </div>
 </section>
 
 {% endblock %}

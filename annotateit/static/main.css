@@ -413,64 +413,6 @@ footer .widget-area h3 {
 }
 
 /**************************************
-  * General
-  *************************************/
-
-ul.annotations {
-	list-style-type: none;
-	padding-left: 0;
-	width: 500px;
-}
-
-ul.annotations li {
-	margin: 0 0 10px 0;
-	padding: 8px;
-	font-size: 90%;
-	background-color: rgba(251, 251, 251, 0.98);
-	border: 1px solid rgba(122, 122, 122, 0.6);
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-}
-
-ul.annotations li div {
-	border-top: 1px solid rgba(133, 133, 133, 0.11);
-}
-
-ul.annotations li div:first-of-type {
-	border-top: none;
-}
-
-ul.annotations li .source q:before {
-	display: inline-block;
-	content: 'On "';
-}
-
-ul.annotations li .source q:after {
-	display: inline-block;
-	content: '"';
-}
-
-ul.annotations li .meta {
-	font-size: 85%;
-}
-
-ul.annotations li .user {
-	font-style: italic;
-}
-
-ul.annotations li .created {
-}
-
-ul.annotations li .text {
-	font-style: italic;
-}
-
-ul.annotations li .source {
-	font-size: 85%;
-}
-
-/**************************************
   * Annotation display
   *************************************/
 
@@ -551,6 +493,10 @@ ul.annotations li .source {
 	color: #aaa;
 	font-size: 140%;
 	margin: 10px 0 0 0;
+}
+
+.recent-annotations .annotation {
+	margin: 0 0 10px 0;
 }
 
 /**************************************

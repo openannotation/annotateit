@@ -1,16 +1,4 @@
 jQuery(function ($) {
-	var formMap = {
-		'#login':  $('#sign-up'),
-		'#sign-up': $('#login').hide()
-	};
-
-	function toggleForms(selector, callback) {
-		formMap[selector].fadeOut(100, function () {
-			$(selector).fadeIn();
-			callback && callback();
-		});
-	}
-
 	function scrollTo(offset) {
 		if (offset.top) {
 			$('body').animate({
@@ -19,23 +7,11 @@ jQuery(function ($) {
 		}
 	}
 
-	$('a[href^=#login], a[href^=#sign-up]').click(function (event) {
-		toggleForms(this.hash);
-		event.preventDefault();
-	});
-
 	$('nav').delegate('a', 'click', function (event) {
 		var section = $(this.hash),
 			offset;
 
-		if (this.hash === '#login' || this.hash === '#sign-up') {
-			toggleForms(this.hash, function () {
-				scrollTo(section.offset());
-			});
-		} else {
-			scrollTo(section.offset());
-		}
-		
+		scrollTo(section.offset());
 		event.preventDefault();
 	});
 

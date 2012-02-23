@@ -13,21 +13,16 @@ main = Blueprint('main', __name__)
 # the entire application. See annotateit.create_app.
 def before_request():
     # User from session
-    g.session_user = _get_session_user()
+    username = session.get('user')
+    g.session_user = User.fetch(username) if username is not None else None
 
     # User from X-Annotator headers for API
     username = request.headers.get(auth.HEADER_PREFIX + 'user-id')
-    if username is not None:
-        g.user = User.fetch(username)
-    else:
-        g.user = None
+    g.user = User.fetch(username) if username is not None else None
 
     # Consumer from X-Annotator headers for API
     consumerkey = request.headers.get(auth.HEADER_PREFIX + 'consumer-key')
-    if consumerkey is not None:
-        g.consumer = Consumer.fetch(consumerkey)
-    else:
-        g.consumer = None
+    g.consumer = Consumer.fetch(consumerkey) if consumerkey is not None else None
 
     g.auth = auth.Authenticator(Consumer.fetch)
     g.authorize = authz.authorize

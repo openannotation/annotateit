@@ -6,26 +6,29 @@
   <!--[if IE]><![endif]-->
 
   <title>{% block title %}{% endblock %} - AnnotateIt - Annotating the Web</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 
+  <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.min.css">
   <link href='http://fonts.googleapis.com/css?family=Arvo:400,700|Inconsolata' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/static/main.css">
+
   {% endblock %}
 </head>
 <body>
-  <div id="airlock">
-    <header>
+  <div class="container">
+    <header class=row>
       {% block masthead %}
-      <h1>
-        <a href="{{url_for('main.index')}}" title="The AnnotateIt Homepage">
+      <h1 class=span5>
+        <a class=nounderline href="{{url_for('main.index')}}" title="The AnnotateIt Homepage">
           AnnotateIt
         </a>
       </h1>
-      <nav>
-        <ul>
+      <nav class=span7>
+        <ul class=inline>
         {% if g.session_user %}
           <li><a href="{{ url_for('user.home') }}">My account</a></li>
           <li><a href="{{ url_for('user.logout') }}">Log out</a></li>
@@ -39,87 +42,59 @@
       </nav>
       {% endblock %}
     </header>
+    <hr>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <ul class="notification">
-        {% for category, message in messages %}
-          <li class="{{ category }}">{{ message }}</li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+      <div class="alert alert-{{category}}">
+        <a class="close nounderline" data-dismiss="alert">×</a>
+        {{ message }}
+      </div>
+    {% endfor %}
 
     <article>
       {% block content %}{% endblock %}
     </article>
 
+    <hr>
     <footer>
       {% block footer %}
       <p>
         Annotator is developed by the
-        <img src="http://assets.okfn.org/images/logo/okf_logo_white_and_green_tiny.png" 
-             id="footer-okf-logo" />
-        <a href="http://okfn.org">Open Knowledge Foundation</a> 
-        with support from the 
+        <img src="http://assets.okfn.org/images/logo/okf_logo_white_and_green_tiny.png"
+             id="okf-logo">
+        <a href="http://okfn.org">Open Knowledge Foundation</a>
+        with support from the
         <a href="http://www.shuttleworthfoundation.org/">Shuttleworth Foundation</a>.
         Go see what other cool stuff we're doing at the moment!
       </p>
-      
-      <div class="widget-area">
-        <ul class="xoxo">
-          <li class="widget-container widget_text">
-          <h3 class="widget-title"></h3>
-          <div class="text-widget">
-            <ul>
-              <li>
-                &copy; <a href="http://www.okfn.org/">Open Knowledge Foundation</a>
-              </li>
-              <li>
-                <a href="http://opendefinition.org/okd/" class="img">
-                <img alt="This Content and Data is Open" src="http://assets.okfn.org/images/ok_buttons/oc_80x15_blue.png" class="button" />
-                </a>
-              </li>
-              <li>
-                <a href="http://opendefinition.org/ossd/" class="img">
-                <img alt="This Content and Data is Open"
-                  src="http://assets.okfn.org/images/ok_buttons/os_80x15_blue.png" class="button" />
-                </a>
-              </li>
-            </ul>
-          </div>
-          </li>
-        </ul>
-        <ul class="xoxo">
-          <li class="widget-container widget_text">
-          <h3 class="widget-title"></h3>
-          <div class="textwidget">
-            <ul>
-              <li>
-                <a href="https://github.com/okfn/annotator/">Annotator on Github</a>
-              </li>
-              <li>
-              <a href="{{url_for('store.root')}}">API</a>
-              </li>
-              <li>
-                <a href="http://github.com/okfn/annotator/wiki/Storage">API Docs</a>
-              </li>
-              <li>
-                <a href="http://okfn.org/contact/">Contact Us</a>
-              </li>
-              <li>
-                <a href="http://okfn.org/privacy-policy/">Privacy Policy</a>
-              </li>
-            </ul>
-          </div>
-          </li>
-        </ul>
-      </div>
+
+      <ul class=inline>
+        <li>&copy; 2009&ndash;2012 <a href="http://okfn.org/">Open Knowledge Foundation</a> </li>
+        <li>
+          <a href="http://opendefinition.org/okd/" class=nounderline>
+          <img alt="This Content and Data is Open" src="http://assets.okfn.org/images/ok_buttons/oc_80x15_blue.png">
+          </a>
+        </li>
+        <li>
+          <a href="http://opendefinition.org/ossd/" class=nounderline>
+          <img alt="This Content and Data is Open" src="http://assets.okfn.org/images/ok_buttons/os_80x15_blue.png">
+          </a>
+        </li>
+      </ul>
+
+      <ul class=inline>
+        <li> <a href="https://github.com/okfn/annotator/">Annotator on Github</a> </li>
+        <li> <a href="{{url_for('store.root')}}">API</a> </li>
+        <li> <a href="http://github.com/okfn/annotator/wiki/Storage">API Docs</a> </li>
+        <li> <a href="http://okfn.org/contact/">Contact Us</a> </li>
+        <li> <a href="http://okfn.org/privacy-policy/">Privacy Policy</a>   </li>
+      </ul>
       {% endblock %}
     </footer>
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+  <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
   <script src="/static/vendor/moment.min.js"></script>
   <script src="/static/main.js"></script>
 </body>

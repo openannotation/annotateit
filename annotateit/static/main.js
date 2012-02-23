@@ -1,24 +1,25 @@
 jQuery(function ($) {
-	function scrollTo(offset) {
-		if (offset.top) {
-			$('body').animate({
-				scrollTop: offset.top - 10
-			}, 300);
-		}
-	}
+  function scrollTo(offset) {
+    if (offset.top) {
+      $('body').animate({
+        scrollTop: offset.top - 10
+      }, 300);
+    }
+  }
 
-	$('nav').delegate('a', 'click', function (event) {
-		var section = $(this.hash),
-			offset;
+  $('nav').delegate('a', 'click', function (event) {
+    var section = $(this.hash);
 
-		scrollTo(section.offset());
-		event.preventDefault();
-	});
+    scrollTo(section.offset());
+    event.preventDefault();
+  });
 
   $('.js-relative-date').each(function () {
     m = moment($(this).attr('datetime'));
     $(this).text(m.fromNow());
   });
+
+  $('.grabfocus').eq(0).focus();
 });
 
 (function (hijs) {

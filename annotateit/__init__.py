@@ -52,6 +52,7 @@ def create_app():
 
     app.before_request(main.before_request)
     app.errorhandler(404)(main.page_not_found)
+    app.errorhandler(401)(main.not_authorized)
 
     return app
 

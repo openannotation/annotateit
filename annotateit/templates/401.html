@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}401 Not Authorized{% endblock %}
+
+{% block content %}
+  <h2>Error 401: Not Authorized</h2>
+
+  <p>
+    Sorry, but you don't have permission to see this page. Perhaps you need to
+    <a href="{{ url_for('user.login') }}">log in</a>? Otherwise, let me help
+    you <a href="{{ url_for('main.index') }}">back to the homepage</a>.
+  </p>
+{% endblock %}

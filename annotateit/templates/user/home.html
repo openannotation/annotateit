@@ -83,7 +83,7 @@
 
   <ul class="annotations">
   {% for anno in annotations %}
-    <li class="annotation">
+    <li>
       <div class="text">{{anno.get('text', '') | truncate(50)}}</div>
       <div class="source">
         <q class="quote">{{anno.get('quote', '') | truncate(50)}}</q>

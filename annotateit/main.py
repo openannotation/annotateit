@@ -44,7 +44,16 @@ def view_annotation(id):
     if ann is None:
         return abort(404)
 
-    return render_template('annotation.html', annotation=ann)
+    if g.authorize(ann, 'read', g.session_user.username if g.session_user else None, 'annotateit'):
+
+        if ann['consumer'] == 'annotateit':
+            user = User.fetch(ann['user'])
+        else:
+            user = None
+
+        return render_template('annotation.html', annotation=ann, user=user)
+
+    abort(401)
 
 def _get_session_user():
     username = session.get('user')

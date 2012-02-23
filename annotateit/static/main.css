@@ -40,9 +40,9 @@ h3 {
 }
 
 a {
-	color: #333;
+	color: rgb(50, 50, 50);
 	text-decoration: none;
-	border-bottom: 1px solid;
+	border-bottom: 1px solid rgba(50, 50, 50, 0.3);
 	-webkit-transition: color 0.15s ease-out;
 	-moz-transition: color 0.15s ease-out;
 	-o-transition: color 0.15s ease-out;
@@ -59,7 +59,7 @@ a:active {
 }
 
 a.img {
-  border: none;
+	border: none;
 }
 
 pre {
@@ -148,8 +148,8 @@ form .actions button {
 }
 
 form .actions p {
-  margin: 0.3em 0;
-  font-size: 1.3em;
+	margin: 0.3em 0;
+	font-size: 1.3em;
 }
 
 /**************************************
@@ -169,7 +169,7 @@ header {
 	padding-bottom: 0.5em;
 }
 
-header::after {
+header:after {
 	display: block;
 	height: 0;
 	visibility: 0;
@@ -194,7 +194,7 @@ header h1 a:active {
 	transition: none;
 }
 
-header h1::after {
+header h1:after {
 	position: absolute;
 	content: "";
 	display: block;
@@ -205,12 +205,12 @@ header h1::after {
 	background: url(images/glyph-logo.png) no-repeat top left;
 }
 
-header h1:hover::after,
-header h1:focus::after {
+header h1:hover:after,
+header h1:focus:after {
 	background-position: left center;
 }
 
-header h1:active::after {
+header h1:active:after {
 	background-position: left bottom;
 }
 
@@ -303,11 +303,11 @@ article ul {
 }
 
 article table th {
-  text-align: left;
+	text-align: left;
 }
 
 article table td {
-  padding: 0 2em 0 0;
+	padding: 0 2em 0 0;
 }
 
 article .screenshot {
@@ -347,54 +347,48 @@ footer {
 	background-color: #fafafa;
 	border: 1px solid #e6e6e6;
 	padding: 1em 1em 0 1em;
-  margin-top: 2em;
+	margin-top: 2em;
 	margin-bottom: 3em;
-  line-height: 1.4;
-  clear: both;
+	line-height: 1.4;
+	clear: both;
 }
 
-footer,
-footer a {
-	-webkit-transition: color 0.05s ease-in;
-	-moz-transition: color 0.05s ease-in;
-	-o-transition: color 0.05s ease-in;
-	transition: color 0.05s ease-in;
-	color: rgba(0, 0, 0, 0.4);
-}
-
-footer:hover,
-footer:hover a {
-	color: rgba(0, 0, 0, 0.8);
+footer {
+	-webkit-transition: opacity 0.1s ease-in;
+	-moz-transition: opacity 0.1s ease-in;
+	-o-transition: opacity 0.1s ease-in;
+	transition: opacity 0.1s ease-in;
+	opacity: 0.4;
 }
 
 footer:hover {
-	color: rgba(0, 0, 0, 0.8);
+	opacity: 0.9;
 }
 
 footer img {
-  display: inline;
-  border: none;
+	display: inline;
+	border: none;
 }
 
 #footer-okf-logo {
-  margin-bottom: -2px;
+	margin-bottom: -2px;
 }
 
 footer img.button {
-  margin-bottom: -2px;
+	margin-bottom: -2px;
 }
 
 footer ul.xoxo, footer p {
-  margin-bottom: 1.2em;
+	margin-bottom: 1.2em;
 }
 
 
 footer .widget-area ul {
-  padding-left: 0;
+	padding-left: 0;
 }
 
 footer .widget-area ul li {
-  display: inline;
+	display: inline;
 }
 
 footer .widget-area ul li::after {
@@ -409,13 +403,13 @@ footer .widget-area ul li:last-of-type::after {
 
 footer .widget-area div,
 footer .widget-area .text-widget ul {
-  display: inline;
+	display: inline;
 }
 
 footer .widget-area h3 {
-  display: inline;
-  font-size: 1.3em;
-  font-weight: bold;
+	display: inline;
+	font-size: 1.3em;
+	font-weight: bold;
 }
 
 /**************************************
@@ -423,57 +417,140 @@ footer .widget-area h3 {
   *************************************/
 
 ul.annotations {
-  list-style-type: none;
-  padding-left: 0;
-  width: 500px;
+	list-style-type: none;
+	padding-left: 0;
+	width: 500px;
 }
 
-ul.annotations .annotation {
-  margin: 0 0 10px 0;
-  padding: 8px;
-  font-size: 90%;
-  background-color: rgba(251, 251, 251, 0.98);
-  border: 1px solid rgba(122, 122, 122, 0.6);
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
+ul.annotations li {
+	margin: 0 0 10px 0;
+	padding: 8px;
+	font-size: 90%;
+	background-color: rgba(251, 251, 251, 0.98);
+	border: 1px solid rgba(122, 122, 122, 0.6);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 
-.annotation div {
-  border-top: 1px solid rgba(133, 133, 133, 0.11);
+ul.annotations li div {
+	border-top: 1px solid rgba(133, 133, 133, 0.11);
 }
 
-.annotation div:first-of-type {
-  border-top: none;
+ul.annotations li div:first-of-type {
+	border-top: none;
 }
 
-.annotation .source q:before {
-  display: inline-block;
-  content: 'On "';
+ul.annotations li .source q:before {
+	display: inline-block;
+	content: 'On "';
 }
 
-.annotation .source q:after {
-  display: inline-block;
-  content: '"';
+ul.annotations li .source q:after {
+	display: inline-block;
+	content: '"';
 }
 
-.annotation .meta {
-  font-size: 85%;
+ul.annotations li .meta {
+	font-size: 85%;
 }
 
-.annotation .user {
-  font-style: italic;
+ul.annotations li .user {
+	font-style: italic;
 }
 
-.annotation .created {
+ul.annotations li .created {
 }
 
-.annotation .text {
-  font-style: italic;
+ul.annotations li .text {
+	font-style: italic;
 }
 
-.annotation .source {
-  font-size: 85%;
+ul.annotations li .source {
+	font-size: 85%;
+}
+
+/**************************************
+  * Annotation display
+  *************************************/
+
+.annotation {
+	width: 700px;
+	margin: 0 auto;
+	font-size: 90%;
+	background-color: rgba(251, 251, 251, 0.98);
+	border: 1px solid rgba(122, 122, 122, 0.6);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.annotation .whowhere img {
+	float: left;
+	width: 50px;
+	margin: 0px 8px;
+}
+
+.annotation .whowhere img {
+	border-width: 1px;
+}
+
+.annotation .whowhere h3 {
+	width: 626px; /* 700 - 66 - 8 */
+	margin: 8px 8px 8px 66px;
+	line-height: 1.5em;
+	padding: 0;
+}
+
+.annotation .whowhere h3 span {
+	font-weight: normal;
+}
+
+/* clearfix */
+.annotation .whowhere h3:after {
+	display: block;
+	height: 0;
+	visibility: hidden;
+	content: "";
+	clear: both;
+}
+
+.annotation .whowhere h3 span a:link, 
+.annotation .whowhere h3 span a:visited {
+	color: #aaa;
+	border: none;
+}
+.annotation .whowhere h3 span a:hover, 
+.annotation .whowhere h3 span a:focus {
+	color: #3665fa;
+	border-bottom: 1px solid #3665fa;
+}
+
+.annotation .whowhere h3 span a:active {
+	color: #f50998;
+	border-bottom: 1px solid #f50998;
+}
+
+.annotation .what {
+	margin: 8px;
+}
+
+.annotation .what .text {
+	margin: 20px 0;
+	font-size: 220%;
+}
+
+.annotation .what .null-text {
+	color: #555;
+	margin: 20px 0;
+	font-size: 190%;
+	font-style: italic;
+}
+
+.annotation .what .meta {
+	color: #aaa;
+	font-size: 140%;
+	margin: 10px 0 0 0;
 }
 
 /**************************************
@@ -493,49 +570,49 @@ ul.annotations .annotation {
   *************************************/
 
 ul.notification {
-  margin: -10px 0 10px;
-  padding: 0;
+	margin: -10px 0 10px;
+	padding: 0;
 }
 
 ul.notification li {
-  width: auto;
-  line-height: 1em;
-  font-size: 14px;
-  padding: 0.8em 1.5%;
-  font-weight: bold;
-  text-align: center;
-  border-bottom: solid 1px #9f9f9f;
-  color: #133362;
-  list-style-type: none;
-  background: #f4a83d;
-  border-bottom-color: #dddddd;
+	width: auto;
+	line-height: 1.4em;
+	font-size: 14px;
+	padding: 0.8em 1.5%;
+	font-weight: bold;
+	text-align: center;
+	border-bottom: solid 1px #9f9f9f;
+	color: #133362;
+	list-style-type: none;
+	background: #f4a83d;
+	border-bottom-color: #dddddd;
 }
 
 ul.notification li.success {
-  background-color: #e7f9e0;
-  border-bottom-color: #ccc;
-  color: #2d6b00;
+	background-color: #e7f9e0;
+	border-bottom-color: #ccc;
+	color: #2d6b00;
 }
 
 ul.notification li.error {
-  background-color: #ffeae8;
-  border-bottom-color: #ccc;
-  color: #b50000;
+	background-color: #ffeae8;
+	border-bottom-color: #ccc;
+	color: #b50000;
 }
 
 ul.errors {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 ul.errors li {
-  line-height: 1em;
-  font-size: 14px;
-  font-weight: bold;
-  margin: none;
-  padding: 0.4em 0.8em 0.4em 0;
-  color: #c00;
+	line-height: 1em;
+	font-size: 14px;
+	font-weight: bold;
+	margin: none;
+	padding: 0.4em 0.8em 0.4em 0;
+	color: #c00;
 }
 
 /**************************************
@@ -543,10 +620,10 @@ ul.errors li {
   *************************************/
 
 a.bookmarklet {
-  padding: 0.3em 0.5em;
-  border: none;
-  background: rgb(178, 178, 178);
-  color: rgb(20, 20, 20);
-  text-shadow: 0px 1px 0px rgb(230, 230, 230);
-  border-radius: 10px;
+	padding: 0.3em 0.5em;
+	border: none;
+	background: rgb(178, 178, 178);
+	color: rgb(20, 20, 20);
+	text-shadow: 0px 1px 0px rgb(230, 230, 230);
+	border-radius: 10px;
 }

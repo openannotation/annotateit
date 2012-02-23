@@ -1,4 +1,4 @@
-(function () {
+jQuery(function ($) {
 	var formMap = {
 		'#login':  $('#sign-up'),
 		'#sign-up': $('#login').hide()
@@ -38,7 +38,12 @@
 		
 		event.preventDefault();
 	});
-}());
+
+  $('.js-relative-date').each(function () {
+    m = moment($(this).attr('datetime'));
+    $(this).text(m.fromNow());
+  });
+});
 
 (function (hijs) {
 //

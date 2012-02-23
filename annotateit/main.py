@@ -27,6 +27,9 @@ def before_request():
     g.auth = auth.Authenticator(Consumer.fetch)
     g.authorize = authz.authorize
 
+def page_not_found(e):
+    return render_template('404.html'), 404
+
 @main.route('/')
 def index():
     return render_template('index.html')

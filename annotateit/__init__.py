@@ -51,6 +51,7 @@ def create_app():
     app.register_blueprint(main.main)
 
     app.before_request(main.before_request)
+    app.errorhandler(404)(main.page_not_found)
 
     return app
 

@@ -19,7 +19,7 @@ header h1 a,header h1 a:hover,header h1 a:focus,header h1 a:active{border:none;c
 header h1:after{position:absolute;content:"";display:block;height:34px;width:28px;left:-30px;top:-15px;background:url(images/glyph-logo.png) no-repeat top left;}
 header h1:hover:after,header h1:focus:after{background-position:left center;}
 header h1:active:after{background-position:left bottom;}
-header nav{text-align:right;margin-top:50px;font-size:25px;}header nav a{font-weight:bold;border-bottom:2px solid transparent;}
+header nav{text-align:right;margin-top:50px;font-size:22px;}header nav a{font-weight:bold;border-bottom:2px solid transparent;}
 header nav a:hover,header nav a:focus{border-color:#3665fa;}
 header nav a:active{border-color:#f50998;}
 .alert{width:75%;margin:0 auto;margin-top:10px;}

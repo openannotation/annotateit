@@ -1,6 +1,8 @@
+import json
+
 from . import TestCase, helpers as h
 
-from annotateit.model import User, Annotation
+from annotateit.model import User, Consumer, Annotation
 
 from flask import url_for
 
@@ -11,6 +13,9 @@ class TestMain(TestCase):
 
         self.user = User('test', 'test@example.com', 'password')
         h.db_save(self.user)
+
+        self.consumer = Consumer('annotateit')
+        h.db_save(self.consumer)
 
     def login(self):
         with self.cli.session_transaction() as sess:
@@ -62,4 +67,19 @@ class TestMain(TestCase):
         res = self.cli.get(url_for('main.view_annotation', id=a.id))
 
         h.assert_equal(401, res.status_code)
+
+    def test_api_token_logged_out(self):
+        res = self.cli.get(url_for('main.auth_token'))
+        h.assert_equal(401, res.status_code)
+
+    def test_api_token_logged_in(self):
+        self.login()
+        res = self.cli.get(url_for('main.auth_token'))
+        token = json.loads(res.data)
+
+        h.assert_equal(token['consumerKey'], 'annotateit')
+        h.assert_equal(token['userId'], 'test')
+        h.assert_equal(len(token['authToken']), 64)
+        h.assert_equal(token['authTokenTTL'], 86400)
+        h.assert_true('authTokenIssueTime' in token)
 

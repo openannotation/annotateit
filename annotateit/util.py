@@ -8,7 +8,7 @@ def require_user(func):
     login page before executing the content of the view handler.
     """
     def requiring_user_first(*args, **kwargs):
-        if not g.session_user:
+        if not g.user:
             flash('Please log in')
             return redirect(url_for('user.login'))
         else:

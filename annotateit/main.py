@@ -9,20 +9,18 @@ from annotateit import user
 
 main = Blueprint('main', __name__)
 
+# We define our own jsonify rather than using flask.jsonify because we wish
+# to jsonify arbitrary objects (e.g. index returns a list) rather than kwargs.
+def jsonify(obj, *args, **kwargs):
+    res = json.dumps(obj, indent=None if request.is_xhr else 2)
+    return Response(res, mimetype='application/json', *args, **kwargs)
+
 # This is not decorated here as it's the before_request handler for
 # the entire application. See annotateit.create_app.
 def before_request():
     # User from session
     username = session.get('user')
-    g.session_user = User.fetch(username) if username is not None else None
-
-    # User from X-Annotator headers for API
-    username = request.headers.get(auth.HEADER_PREFIX + 'user-id')
     g.user = User.fetch(username) if username is not None else None
-
-    # Consumer from X-Annotator headers for API
-    consumerkey = request.headers.get(auth.HEADER_PREFIX + 'consumer-key')
-    g.consumer = Consumer.fetch(consumerkey) if consumerkey is not None else None
 
     g.auth = auth.Authenticator(Consumer.fetch)
     g.authorize = authz.authorize
@@ -44,7 +42,7 @@ def view_annotation(id):
     if ann is None:
         return abort(404)
 
-    if g.authorize(ann, 'read', g.session_user.username if g.session_user else None, 'annotateit'):
+    if g.authorize(ann, 'read', g.user.username if g.user else None, 'annotateit'):
 
         if ann['consumer'] == 'annotateit':
             user = User.fetch(ann['user'])
@@ -54,6 +52,14 @@ def view_annotation(id):
         return render_template('annotation.html', annotation=ann, user=user)
 
     abort(401)
+
+# AUTH TOKEN
+@main.route('/api/token')
+def auth_token():
+    if g.user:
+        return jsonify(g.auth.generate_token('annotateit', g.user.username))
+    else:
+        return jsonify('Please go to {0} to log in!'.format(request.host_url), status=401)
 
 def _get_session_user():
     username = session.get('user')

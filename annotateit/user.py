@@ -56,7 +56,7 @@ class ResetPasswordForm(Form):
 
 @user.route('/login', methods=['GET', 'POST'])
 def login():
-    if g.session_user:
+    if g.user:
         return redirect(url_for('.home'))
 
     form = LoginForm()
@@ -101,13 +101,13 @@ def signup():
 @util.require_user
 def home():
     bookmarklet = render_template('bookmarklet.js', root=request.host_url.rstrip('/'))
-    annotations = Annotation.search(user=g.session_user.username,
-                                    _user_id=g.session_user.username,
+    annotations = Annotation.search(user=g.user.username,
+                                    _user_id=g.user.username,
                                     _consumer_key='annotateit',
                                     limit=20)
 
     return render_template('user/home.html',
-                           user=g.session_user,
+                           user=g.user,
                            bookmarklet=bookmarklet,
                            annotations=annotations)
 
@@ -115,7 +115,7 @@ def home():
 @util.require_user
 def add_consumer():
     c = Consumer()
-    g.session_user.consumers.append(c)
+    g.user.consumers.append(c)
 
     db.session.commit()
 
@@ -124,7 +124,7 @@ def add_consumer():
 @user.route('/consumer/delete/<key>')
 @util.require_user
 def delete_consumer(key):
-    c = g.session_user.consumers.filter_by(key=key).first()
+    c = g.user.consumers.filter_by(key=key).first()
 
     if not c:
         flash("Couldn't delete consumer '{0}' because I couldn't find it!".format(key), 'error')
@@ -136,7 +136,7 @@ def delete_consumer(key):
 
 @user.route('/reset_password', methods=['GET', 'POST'])
 def reset_password_request():
-    if g.session_user:
+    if g.user:
         flash('Already logged in. You can change your password here!')
         return redirect(url_for('.home'))
 

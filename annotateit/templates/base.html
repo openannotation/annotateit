@@ -29,7 +29,7 @@
       </h1>
       <nav class=span7>
         <ul class=inline>
-        {% if g.session_user %}
+        {% if g.user %}
           <li><a href="{{ url_for('user.home') }}">My account</a></li>
           <li><a href="{{ url_for('user.logout') }}">Log out</a></li>
         {% else %}

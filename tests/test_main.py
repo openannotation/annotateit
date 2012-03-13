@@ -83,3 +83,16 @@ class TestMain(TestCase):
         h.assert_equal(token['authTokenTTL'], 86400)
         h.assert_true('authTokenIssueTime' in token)
 
+    def test_cors_preflight(self):
+        response = self.cli.open('/api/token', method="OPTIONS")
+        headers = dict(response.headers)
+
+        assert headers['Access-Control-Allow-Methods'] == 'GET, OPTIONS', \
+            "Did not send the right Access-Control-Allow-Methods header."
+
+        assert headers['Access-Control-Allow-Origin'] == '*', \
+            "Did not send the right Access-Control-Allow-Origin header."
+
+        assert headers['Access-Control-Expose-Headers'] == 'Location, Content-Type, Content-Length', \
+            "Did not send the right Access-Control-Expose-Headers header."
+

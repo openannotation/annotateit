@@ -56,12 +56,24 @@ def view_annotation(id):
     abort(401)
 
 # AUTH TOKEN
-@main.route('/api/token')
+@main.route('/api/token', methods=['GET', 'OPTIONS'])
 def auth_token():
+    ac = 'Access-Control-'
+    headers = {}
+
+    headers[ac + 'Allow-Origin']      = request.headers.get('origin', '*')
+    headers[ac + 'Allow-Credentials'] = 'true'
+    headers[ac + 'Expose-Headers']    = 'Location, Content-Type, Content-Length'
+
+    if request.method == 'OPTIONS':
+        headers[ac + 'Allow-Headers'] = 'X-Requested-With, Content-Type, Content-Length'
+        headers[ac + 'Allow-Methods'] = 'GET, OPTIONS'
+        headers[ac + 'Max-Age']       = '86400'
+
     if g.user:
-        return jsonify(g.auth.generate_token('annotateit', g.user.username))
+        return jsonify(g.auth.generate_token('annotateit', g.user.username), headers=headers)
     else:
-        return jsonify('Please go to {0} to log in!'.format(request.host_url), status=401)
+        return jsonify('Please go to {0} to log in!'.format(request.host_url), status=401, headers=headers)
 
 def _get_session_user():
     username = session.get('user')

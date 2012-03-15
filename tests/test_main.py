@@ -61,7 +61,8 @@ class TestMain(TestCase):
                        consumer='annotateit',
                        uri='http://example.com',
                        text='This is the annotation text',
-                       quote='This is what was annotated')
+                       quote='This is what was annotated',
+                       permissions={'read': []})
         a.save()
 
         res = self.cli.get(url_for('main.view_annotation', id=a.id))
@@ -75,11 +76,10 @@ class TestMain(TestCase):
     def test_api_token_logged_in(self):
         self.login()
         res = self.cli.get(url_for('main.auth_token'))
-        token = json.loads(res.data)
+        token = json.loads(res.data.rsplit('.', 2)[0])
 
         h.assert_equal(token['consumerKey'], 'annotateit')
         h.assert_equal(token['userId'], 'test')
-        h.assert_equal(len(token['authToken']), 64)
         h.assert_equal(token['authTokenTTL'], 86400)
         h.assert_true('authTokenIssueTime' in token)
 

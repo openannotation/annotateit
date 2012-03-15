@@ -11,12 +11,6 @@ from annotateit import user
 
 main = Blueprint('main', __name__)
 
-# We define our own jsonify rather than using flask.jsonify because we wish
-# to jsonify arbitrary objects (e.g. index returns a list) rather than kwargs.
-def jsonify(obj, *args, **kwargs):
-    res = json.dumps(obj, indent=None if request.is_xhr else 2)
-    return Response(res, mimetype='application/json', *args, **kwargs)
-
 # This is not decorated here as it's the before_request handler for
 # the entire application. See annotateit.create_app.
 def before_request():
@@ -71,9 +65,10 @@ def auth_token():
         headers[ac + 'Max-Age']       = '86400'
 
     if g.user:
-        return jsonify(g.auth.generate_token('annotateit', g.user.username), headers=headers)
+        annotateit = Consumer.fetch('annotateit')
+        return Response(auth.generate_token(annotateit, {'userId': g.user.username}), headers=headers, mimetype='text/plain')
     else:
-        return jsonify('Please go to {0} to log in!'.format(request.host_url), status=401, headers=headers)
+        return Response('Please go to {0} to log in!'.format(request.host_url), status=401, headers=headers,  mimetype='text/plain')
 
 def _get_session_user():
     username = session.get('user')

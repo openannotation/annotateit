@@ -65,10 +65,12 @@ def auth_token():
         headers[ac + 'Max-Age']       = '86400'
 
     if g.user:
-        annotateit = Consumer.fetch('annotateit')
-        return Response(auth.generate_token(annotateit, {'userId': g.user.username}), headers=headers, mimetype='text/plain')
+        c = Consumer.fetch('annotateit')
+        payload = {'consumerKey': c.key, 'userId': g.user.username, 'ttl': c.ttl}
+        token = auth.encode_token(payload, c.secret)
+        return Response(token, headers=headers, mimetype='text/plain')
     else:
-        return Response('Please go to {0} to log in!'.format(request.host_url), status=401, headers=headers,  mimetype='text/plain')
+        return Response('Please go to {0} to log in!'.format(request.host_url), status=401, headers=headers, mimetype='text/plain')
 
 def _get_session_user():
     username = session.get('user')

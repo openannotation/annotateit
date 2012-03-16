@@ -1,10 +1,13 @@
 import json
 
+from flask import url_for
+import jwt
+
 from . import TestCase, helpers as h
 
 from annotateit.model import User, Consumer, Annotation
 
-from flask import url_for
+from annotateit import db
 
 class TestMain(TestCase):
     def setup(self):
@@ -12,10 +15,12 @@ class TestMain(TestCase):
         self.cli = self.app.test_client()
 
         self.user = User('test', 'test@example.com', 'password')
-        h.db_save(self.user)
-
         self.consumer = Consumer('annotateit')
-        h.db_save(self.consumer)
+        self.consumer.secret = 'secret'
+
+        db.session.add(self.user)
+        db.session.add(self.consumer)
+        db.session.commit()
 
     def login(self):
         with self.cli.session_transaction() as sess:
@@ -76,12 +81,12 @@ class TestMain(TestCase):
     def test_api_token_logged_in(self):
         self.login()
         res = self.cli.get(url_for('main.auth_token'))
-        token = json.loads(res.data.rsplit('.', 2)[0])
+        token = jwt.decode(res.data, 'secret')
 
         h.assert_equal(token['consumerKey'], 'annotateit')
         h.assert_equal(token['userId'], 'test')
-        h.assert_equal(token['authTokenTTL'], 86400)
-        h.assert_true('authTokenIssueTime' in token)
+        h.assert_equal(token['ttl'], 86400)
+        h.assert_true('issuedAt' in token)
 
     def test_cors_preflight(self):
         response = self.cli.open('/api/token', method="OPTIONS")

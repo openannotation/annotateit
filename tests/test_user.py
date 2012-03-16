@@ -1,7 +1,7 @@
 from . import TestCase, helpers as h
 import re
 
-from annotateit import mail
+from annotateit import db, mail
 from annotateit.model import User
 
 from flask import current_app, url_for
@@ -12,7 +12,8 @@ class TestUser(TestCase):
         self.cli = self.app.test_client()
 
         self.user = User('test', 'test@example.com', 'password')
-        h.db_save(self.user)
+        db.session.add(self.user)
+        db.session.commit()
 
     def login(self):
         with self.cli.session_transaction() as sess:

@@ -2,11 +2,11 @@ from setuptools import setup, find_packages
 
 setup(
     name = 'annotateit',
-    version = '2.1.1',
+    version = '2.1.2',
     packages = find_packages(),
 
     install_requires = [
-        'annotator==0.7.1',
+        'annotator==0.7.2',
         'Flask==0.8',
         'Flask-Mail==0.6.1',
         'Flask-SQLAlchemy==0.15',

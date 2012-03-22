@@ -89,15 +89,10 @@ class TestMain(TestCase):
         h.assert_true('issuedAt' in token)
 
     def test_cors_preflight(self):
-        response = self.cli.open('/api/token', method="OPTIONS")
+        response = self.cli.open('/api/token', method="OPTIONS", headers={'Origin': 'foo'})
         headers = dict(response.headers)
 
-        assert headers['Access-Control-Allow-Methods'] == 'GET, OPTIONS', \
-            "Did not send the right Access-Control-Allow-Methods header."
-
-        assert headers['Access-Control-Allow-Origin'] == '*', \
-            "Did not send the right Access-Control-Allow-Origin header."
-
-        assert headers['Access-Control-Expose-Headers'] == 'Location, Content-Type, Content-Length', \
-            "Did not send the right Access-Control-Expose-Headers header."
+        h.assert_equal(headers['Access-Control-Allow-Methods'], 'GET, OPTIONS')
+        h.assert_equal(headers['Access-Control-Allow-Origin'], 'foo')
+        h.assert_equal(headers['Access-Control-Expose-Headers'], 'Location, Content-Type, Content-Length')
 

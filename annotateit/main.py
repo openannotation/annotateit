@@ -22,6 +22,7 @@ def before_request():
     g.authorize = authz.authorize
 
     g.after_annotation_create = _add_annotation_link
+    g.before_annotation_update = _add_annotation_link
 
 def page_not_found(e):
     return render_template('404.html'), 404
@@ -84,11 +85,11 @@ def _get_session_user():
 
 def _add_annotation_link(annotation):
     links = annotation['links'] = annotation.get('links', [])
+    html_link = {
+        'rel': 'alternate',
+        'type': 'text/html',
+        'href': url_for('main.view_annotation', id=annotation['id'], _external=True)
+    }
     # We really can't do anything useful if links is already set and isn't a list
-    if isinstance(links, list):
-        links.append({
-            'rel': 'alternate',
-            'type': 'text/html',
-            'href': url_for('main.view_annotation', id=annotation['id'], _external=True)
-        })
-        annotation.save()
+    if isinstance(links, list) and html_link not in links:
+        links.append(html_link)

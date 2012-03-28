@@ -1,6 +1,3 @@
-import httplib
-import urllib
-
 from flask import Blueprint
 from flask import current_app, g
 from flask import redirect, request, url_for, render_template, session, flash

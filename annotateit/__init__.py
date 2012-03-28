@@ -9,8 +9,6 @@ __all__ = ['__version__', '__license__', '__author__',
            'create_indices', 'drop_indices',
            'create_all', 'drop_all']
 
-import logging
-
 from flask import Flask
 from flaskext.sqlalchemy import SQLAlchemy
 from flaskext.mail import Mail
@@ -37,6 +35,10 @@ def create_app():
 
     # Configure ES
     es.init_app(app)
+
+    # Add regex converter
+    from annotateit.util import RegexConverter
+    app.url_map.converters['regex'] = RegexConverter
 
     # Mount views
     from annotator import store

@@ -1,13 +1,12 @@
-import json
-
 from flask import Blueprint, Response, url_for
-from flask import current_app, g, request
+from flask import g, request
 from flask import abort, render_template, session
 
 from annotator import auth, authz
 
 from annotateit.model import Annotation, User, Consumer
-from annotateit import user
+from annotateit.negotiate import negotiate
+from annotateit.formats import HTMLFormatter, HTMLEmbedFormatter, JSONFormatter
 
 main = Blueprint('main', __name__)
 
@@ -34,8 +33,12 @@ def not_authorized(e):
 def index():
     return render_template('index.html')
 
-@main.route('/a/<id>')
-def view_annotation(id):
+@main.route('/annotations/<regex("[^\.]+"):id>')
+@main.route('/annotations/<regex("[^\.]+"):id>.<format>')
+@negotiate(JSONFormatter, key='annotation')
+@negotiate(HTMLEmbedFormatter, template='annotation.embed.html')
+@negotiate(HTMLFormatter, template='annotation.html')
+def view_annotation(id, format=None):
     ann = Annotation.fetch(id)
 
     if ann is None:
@@ -48,7 +51,7 @@ def view_annotation(id):
         else:
             user = None
 
-        return render_template('annotation.html', annotation=ann, user=user)
+        return {'annotation': ann, 'user': user}
 
     abort(401)
 

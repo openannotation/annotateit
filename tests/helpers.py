@@ -1,2 +1,2 @@
 from nose.tools import *
-from mock import Mock, patch
+from mock import MagicMock, Mock, patch

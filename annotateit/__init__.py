@@ -40,6 +40,12 @@ def create_app():
     from annotateit.util import RegexConverter
     app.url_map.converters['regex'] = RegexConverter
 
+    # Add filters
+    from annotateit.util import filters
+    for name, func in vars(filters).iteritems():
+        if not name.startswith('_'):
+            app.template_filter()(func)
+
     # Mount views
     from annotator import store
     from annotateit import user, main

@@ -6,7 +6,7 @@ from annotator import auth, authz
 
 from annotateit.model import Annotation, User, Consumer
 from annotateit.negotiate import negotiate
-from annotateit.formats import HTMLFormatter, HTMLEmbedFormatter, JSONFormatter
+from annotateit.formats import HTMLFormatter, JSEmbedFormatter, JSONFormatter
 
 main = Blueprint('main', __name__)
 
@@ -36,7 +36,7 @@ def index():
 @main.route('/annotations/<regex("[^\.]+"):id>')
 @main.route('/annotations/<regex("[^\.]+"):id>.<format>')
 @negotiate(JSONFormatter, key='annotation')
-@negotiate(HTMLEmbedFormatter, template='annotation.embed.html')
+@negotiate(JSEmbedFormatter, template='annotation.embed.js')
 @negotiate(HTMLFormatter, template='annotation.html')
 def view_annotation(id, format=None):
     ann = Annotation.fetch(id)

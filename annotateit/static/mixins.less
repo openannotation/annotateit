@@ -1,0 +1,33 @@
+@linkColor: rgb(50, 50, 50);
+@hoverColor: #3665fa;
+@activeColor: #f50998;
+
+.transition (@trans) {
+  -webkit-transition: @trans;
+  -moz-transition: @trans;
+  -o-transition: @trans;
+  transition: @trans;
+}
+
+.border-radius (@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.box-shadow (@shadow) {
+  -webkit-box-shadow: @shadow;
+  -moz-box-shadow: @shadow;
+  box-shadow: @shadow;
+}
+
+.clearfix () {
+    zoom: 1;
+    &:before, &:after {
+        content: "";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}

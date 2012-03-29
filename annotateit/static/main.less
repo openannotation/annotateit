@@ -1,30 +1,4 @@
-@linkColor: rgb(50, 50, 50);
-@hoverColor: #3665fa;
-@activeColor: #f50998;
-
-.transition (@trans) {
-	-webkit-transition: @trans;
-	-moz-transition: @trans;
-	-o-transition: @trans;
-	transition: @trans;	
-}
-
-.border-radius (@radius: 5px) {
-	-webkit-border-radius: @radius;
-	-moz-border-radius: @radius;
-	border-radius: @radius;
-}
-
-.clearfix {
-    zoom: 1;
-    &:before, &:after {
-        content: "";
-        display: table;
-    }
-    &:after {
-        clear: both;
-    }
-}
+@import 'mixins';
 
 img {
 	display: block;
@@ -145,11 +119,11 @@ header nav {
 
 	a:hover, a:focus {
 		border-color: @hoverColor;
-	}	
-	
+	}
+
 	a:active {
 		border-color: @activeColor;
-	}	
+	}
 }
 
 .alert {
@@ -211,79 +185,7 @@ form.primary {
   * Annotation display
   *************************************/
 
-.annotation {
-	width: 700px;
-	margin: 0 auto;
-	background-color: rgba(251, 251, 251, 0.98);
-	border: 1px solid rgba(122, 122, 122, 0.6);
-	.border-radius(5px);
-
-	.whowhere {
-		img {
-			float: left;
-			width: 50px;
-			margin: 0px 8px;
-		}
-
-		img {
-			border-width: 1px;
-		}
-
-		h3 {
-			width: 626px; /* 700 - 66 - 8 */
-			margin: 8px 8px 8px 66px;
-			line-height: 1.5em;
-			padding: 0;
-		}
-
-		h3 span {
-			font-weight: normal;
-			a:link, a:visited {
-				color: #aaa;
-				border: none;
-			}
-			a:hover, a:focus {
-				color: @hoverColor;
-				border-bottom: 1px solid @hoverColor;
-			}
-			a:active {
-				color: @activeColor;
-				border-bottom: 1px solid @activeColor;
-			}
-		}
-
-		/* clearfix */
-		h3:after {
-			display: block;
-			height: 0;
-			visibility: hidden;
-			content: "";
-			clear: both;
-		}
-	} // .whowhere
-
-	.what {
-		margin: 8px;
-
-		.text {
-			margin: 20px 0;
-			font-size: 140%;
-		}
-
-		.null-text {
-			color: #555;
-			margin: 20px 0;
-			font-size: 120%;
-			font-style: italic;
-		}
-
-		.meta {
-			color: #aaa;
-			font-size: 90%;
-			margin: 10px 0 0 0;
-		}
-	} // .what
-} // .annotation
+@import 'annotation';
 
 .recent-annotations .annotation {
 	margin: 0 0 10px 0;
@@ -314,14 +216,14 @@ a.bookmarklet {
 	header nav {
 		text-align: left;
 		margin-top: 20px !important;
-	}	
+	}
 }
 
 @media (max-width: 979px) {
 	header h1 {
 		margin-top: 29px;
 		font-size: 50px;
-	}	
+	}
 	header nav {
 		font-size: 18px;
 	}

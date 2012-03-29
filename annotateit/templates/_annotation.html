@@ -1,30 +1,44 @@
 {% macro render_annotation(annotation, user=None) %}
-  <div class='annotation' id="annotation-{{ annotation['id'] }}">
-    <div class='whowhere'>
+  <div class='annotateit-annotation' data-annotation-id="{{ annotation['id'] }}">
+
+    <div class='vcard ann-head'>
       {% if user %}
-        <img src='{{ user.gravatar_url }}&amp;s=48'>
+        <img class='photo' src='{{ user.gravatar_url }}&amp;s=48'>
       {% else %}
         <img src='http://www.gravatar.com/avatar?d=mm&amp;f=y&amp;s=48'>
       {% endif %}
-      <h3>
-        {{ annotation['user'] }}<br>
-        <span>
-        {% if 'uri' in annotation %}
-          on
-          <a href="{{annotation['uri']}}">{{annotation['uri'] | truncate(50, killwords=True)}}</a>
-        {% endif %}
-        </span>
-      </h3>
+      <div class='ann-head-right'>
+        <span class='ann-username fn nickname'>{{ annotation['user'] }}</span><br>
+
+      </div>
     </div>
-    <div class='what'>
+
+    <div class='ann-body'>
       {% if annotation['text'] %}
-        <p class="text">{{ annotation['text'] }}</p>
+        <p class='text'>{{ annotation['text'] }}</p>
       {% else %}
-        <p class="null-text">No annotation text; highlight only.</p>
+        <p class='null-text'>No annotation text; highlight only.</p>
       {% endif %}
-      <p class="meta">
-        <time class="js-relative-date" datetime="{{ annotation['created'] }}" title="{{ annotation['created'] }}">{{ annotation['created'] }}</time> on &ldquo;<span class="quote">{{ annotation['quote'] | truncate(50) }}</span>&rdquo;
+      <p class='ann-meta'>
+        made
+        <a href="{{ url_for('main.view_annotation', id=annotation['id'], _external=True) }}">
+          <time
+            class='js-relative-date ann-updated'
+            datetime='{{ annotation['updated'] }}'
+            title='{{ annotation['updated'] }}'>
+            {{ annotation['updated'] | pretty_date }}</time></a>
+        on
+        &ldquo;<span class='quote'>{{ annotation['quote'] | truncate(25, killwords=True) }}</span>&rdquo;
+        {% if 'uri' in annotation %}
+          at
+          <a class='ann-uri'
+             href="{{annotation['uri']}}"
+             data-annotation-ranges="{{annotation.get('ranges', {}) | tojson}}">
+            {{annotation['uri'] | truncate(25, killwords=True)}}
+          </a>
+        {% endif %}
       </p>
     </div>
+
   </div>
 {% endmacro %}

@@ -272,16 +272,13 @@ form.primary {
 .annotateit-annotation a:link,
 .annotateit-annotation a:visited {
   color: #aaa !important;
-  border: none !important;
 }
 .annotateit-annotation a:hover,
 .annotateit-annotation a:focus {
   color: #3665fa !important;
-  border-bottom: 1px solid #3665fa !important;
 }
 .annotateit-annotation a:active {
   color: #f50998 !important;
-  border-bottom: 1px solid #f50998 !important;
 }
 .recent-annotations .annotation {
   margin: 0 0 10px 0;

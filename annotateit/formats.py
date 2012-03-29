@@ -17,6 +17,10 @@ class JSEmbedFormatter(TemplateFormatter):
     format = 'embed.js'
     mimetypes = ['application/javascript', 'application/vnd.annotateit.annotation.embed+javascript']
 
+class HTMLEmbedFormatter(TemplateFormatter):
+    format = 'embed.html'
+    mimetypes = ['text/html', 'application/vnd.annotateit.annotation.embed+html']
+
 class JSONFormatter(Formatter):
     format = 'json'
     mimetypes = ['application/json']

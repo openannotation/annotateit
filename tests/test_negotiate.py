@@ -63,14 +63,8 @@ class TestNegotiator(NegotiatorTestCase):
 
     def test_get_formatter_errors(self):
         h.assert_raises(TypeError, self.n.get_formatter)
-
-        with h.assert_raises(FormatterNotFound) as e:
-            self.n.get_formatter(format='html')
-        h.assert_true("Formatter for format 'html' not found!" in e.exception.message)
-
-        with h.assert_raises(FormatterNotFound) as e:
-            self.n.get_formatter(mimetype='text/html')
-        h.assert_true("Formatter for mimetype 'text/html' not found!" in e.exception.message)
+        h.assert_raises(FormatterNotFound, self.n.get_formatter, format='html')
+        h.assert_raises(FormatterNotFound, self.n.get_formatter, mimetype='text/html')
 
     def test_get_formatter_by_format(self):
         FooFormatter = make_mock_formatter('foo')

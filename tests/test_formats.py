@@ -1,23 +1,23 @@
 from . import TestCase, helpers as h
 
-from annotateit.formats import TemplateFormatter, JSONFormatter
+from annotateit.formats import HTMLFormatter, JSONFormatter
 
-class TestTemplateFormatter(TestCase):
+class TestHTMLFormatter(TestCase):
     def setup(self):
-        super(TestTemplateFormatter, self).setup()
+        super(TestHTMLFormatter, self).setup()
         self.render_patcher = h.patch('annotateit.formats.render_template')
         self.render = self.render_patcher.start()
 
     def teardown(self):
         self.render_patcher.stop()
-        super(TestTemplateFormatter, self).teardown()
+        super(TestHTMLFormatter, self).teardown()
 
     def test_raises_without_template(self):
-        formatter = TemplateFormatter()
+        formatter = HTMLFormatter()
         h.assert_raises(TypeError, formatter.configure)
 
     def test_render(self):
-        formatter = TemplateFormatter()
+        formatter = HTMLFormatter()
         formatter.configure(template='foo.html')
         formatter.render({'foo': 'bar', 'a': 1})
         self.render.assert_called_once_with('foo.html', foo='bar', a=1)

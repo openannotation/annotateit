@@ -59,7 +59,7 @@ class TestMain(TestCase):
         h.assert_in(a['user'], res.data)
         h.assert_in(a['uri'], res.data)
         h.assert_in(a['text'], res.data)
-        h.assert_in(a['quote'][:50], res.data)
+        h.assert_in(a['quote'][:25], res.data)
 
     def test_view_annotation_logged_out(self):
         a = Annotation(user='test',

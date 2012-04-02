@@ -13,7 +13,6 @@ def pretty_date(time=False):
     elif isinstance(time, datetime):
         diff = now - time
     elif isinstance(time, basestring):
-        print repr(iso8601.parse_date(time))
         diff = now - iso8601.parse_date(time)
     elif not time:
         diff = now - now

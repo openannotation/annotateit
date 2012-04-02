@@ -1,11 +1,11 @@
 from flask import Blueprint, Response, url_for
 from flask import g, request
 from flask import abort, render_template, session
+from negotiate.flask import negotiate
 
 from annotator import auth, authz
 
 from annotateit.model import Annotation, User, Consumer
-from annotateit.negotiate import negotiate
 from annotateit.formats import HTMLFormatter, JSEmbedFormatter, HTMLEmbedFormatter, JSONFormatter
 
 main = Blueprint('main', __name__)

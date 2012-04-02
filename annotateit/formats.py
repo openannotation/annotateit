@@ -1,6 +1,6 @@
 import json
 from flask import render_template, request
-from annotateit.negotiate import Formatter
+from negotiate.flask import Formatter
 
 class TemplateFormatter(Formatter):
     def configure(self, template):

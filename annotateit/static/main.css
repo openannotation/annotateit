@@ -212,11 +212,9 @@ form.primary {
 }
 .annotateit-annotation .ann-head {
   margin-top: 8px !important;
-  zoom: 1;
-  zoom: 1;
-}
-.annotateit-annotation .ann-head .vcard {
   background: none !important;
+  zoom: 1;
+  zoom: 1;
 }
 .annotateit-annotation .ann-head img {
   float: left !important;

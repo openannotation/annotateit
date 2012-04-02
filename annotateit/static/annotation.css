@@ -24,7 +24,10 @@
   margin: 0px 8px !important;
 }
 .annotateit-annotation .ann-head img {
-  border-width: 1px !important;
+  border: 1px solid #333 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: none !important;
 }
 .annotateit-annotation .ann-head .ann-head-right {
   width: auto !important;

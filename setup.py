@@ -14,7 +14,8 @@ setup(
         'SQLAlchemy==0.7.5',
         'itsdangerous==0.12',
         'decorator==3.3.2',
-        'iso8601==0.1.4'
+        'iso8601==0.1.4',
+        'negotiate==0.0.1'
     ],
 
     extras_require = {

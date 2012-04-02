@@ -280,8 +280,8 @@ form.primary {
 .annotateit-annotation a:active {
   color: #f50998 !important;
 }
-.recent-annotations .annotation {
-  margin: 0 0 10px 0;
+.recent-annotations .annotateit-annotation {
+  margin: 0 0 10px 0 !important;
 }
 /**************************************
   * Highlights

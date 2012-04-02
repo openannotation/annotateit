@@ -215,15 +215,15 @@ form.primary {
   zoom: 1;
   zoom: 1;
 }
+.annotateit-annotation .ann-head .vcard {
+  background: none !important;
+}
 .annotateit-annotation .ann-head img {
   float: left !important;
   width: 50px !important;
-  margin: 0px 8px !important;
-}
-.annotateit-annotation .ann-head img {
   border: 1px solid #333 !important;
   padding: 0 !important;
-  margin: 0 !important;
+  margin: 0px 8px !important;
   background: none !important;
 }
 .annotateit-annotation .ann-head .ann-head-right {

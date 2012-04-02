@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask import current_app, g
-from flask import redirect, request, url_for, render_template, session, flash
+from flask import abort, redirect, request, url_for, render_template, session, flash
 
 from flaskext.wtf import Form, fields as f, validators as v, html5
 from flaskext.mail import Message
@@ -94,20 +94,6 @@ def signup():
 
     return render_template('user/signup.html', form=form, captcha=captcha)
 
-@user.route('/home')
-@util.require_user
-def home():
-    bookmarklet = render_template('bookmarklet.js', root=request.host_url.rstrip('/'))
-    annotations = Annotation.search(user=g.user.username,
-                                    _user_id=g.user.username,
-                                    _consumer_key='annotateit',
-                                    limit=20)
-
-    return render_template('user/home.html',
-                           user=g.user,
-                           bookmarklet=bookmarklet,
-                           annotations=annotations)
-
 @user.route('/consumer/add')
 @util.require_user
 def add_consumer():
@@ -179,6 +165,28 @@ def reset_password(code):
         return redirect(url_for('.login'))
 
     return render_template('user/reset_password.html', form=form)
+
+@user.route('/home')
+@util.require_user
+def home():
+    return redirect(url_for('.home_for_user', username=g.user.username), code=303)
+
+@user.route('/<username>')
+@util.require_user
+def home_for_user(username):
+    if username != g.user.username:
+        abort(401)
+
+    bookmarklet = render_template('bookmarklet.js', root=request.host_url.rstrip('/'))
+    annotations = Annotation.search(user=g.user.username,
+                                    _user_id=g.user.username,
+                                    _consumer_key='annotateit',
+                                    limit=20)
+
+    return render_template('user/home.html',
+                           user=g.user,
+                           bookmarklet=bookmarklet,
+                           annotations=annotations)
 
 def _add_user(form):
     user = User(username=form.username.data,

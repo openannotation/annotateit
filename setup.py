@@ -17,8 +17,7 @@ setup(
         'iso8601==0.1.4'
     ],
 
-    test_requires = [
-        'nose==1.1.2',
-        'mock==0.8.0'
-    ]
+    extras_require = {
+        'test': ['nose==1.1.2', 'mock==0.8.0']
+    }
 )

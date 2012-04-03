@@ -33,7 +33,8 @@ def not_authorized(e):
 
 @main.route('/')
 def index():
-    return render_template('index.html')
+    bookmarklet = render_template('bookmarklet.js', root=request.host_url.rstrip('/'))
+    return render_template('index.html', bookmarklet=bookmarklet)
 
 @main.route('/annotations/<regex("[^\.]+"):id>')
 @main.route('/annotations/<regex("[^\.]+"):id>.<format>')

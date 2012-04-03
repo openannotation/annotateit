@@ -1,5 +1,5 @@
 from flask import Blueprint, Response, url_for
-from flask import g, request
+from flask import current_app, g, request
 from flask import abort, render_template, session
 from negotiate.flask import negotiate
 
@@ -13,6 +13,8 @@ main = Blueprint('main', __name__)
 # This is not decorated here as it's the before_request handler for
 # the entire application. See annotateit.create_app.
 def before_request():
+    g.debug = current_app.debug
+
     # User from session
     username = session.get('user')
     g.user = User.fetch(username) if username is not None else None

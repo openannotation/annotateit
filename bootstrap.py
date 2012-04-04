@@ -4,12 +4,14 @@ from getpass import getpass
 import readline
 import sys
 
+import migrate.versioning.api as migrate
+
 import annotateit
 from annotateit import db
 from annotateit.model import Consumer, User
 
 if __name__ == '__main__':
-    r = raw_input("This program will perform initial setup of the annotation \n"
+    r = raw_input("This migration will perform initial setup of the annotation \n"
                   "store, and create the required admin accounts. Proceed? [Y/n] ")
 
     if r and r[0] in ['n', 'N']:
@@ -18,7 +20,11 @@ if __name__ == '__main__':
     print("\nCreating SQLite database and ElasticSearch indices... ", end="")
 
     app = annotateit.create_app()
-    annotateit.create_all(app)
+    annotateit.create_indices(app)
+
+    migrate_args = dict(url=app.config['SQLALCHEMY_DATABASE_URI'], debug='False', repository='migration')
+    migrate.version_control(**migrate_args)
+    migrate.upgrade(**migrate_args)
 
     print("done.\n")
 
@@ -42,6 +48,7 @@ if __name__ == '__main__':
         print("\nCreating admin user... ", end="")
 
         u = User(username, email, password)
+        u.is_admin = True
 
         db.session.add(u)
         db.session.commit()
@@ -59,4 +66,3 @@ if __name__ == '__main__':
         print("done.\n")
 
         print("Primary consumer secret: %s" % c.secret)
-

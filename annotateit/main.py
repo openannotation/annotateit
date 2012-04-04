@@ -10,6 +10,19 @@ from annotateit.formats import HTMLFormatter, JSEmbedFormatter, HTMLEmbedFormatt
 
 main = Blueprint('main', __name__)
 
+def authorize(annotation, action, user=None, consumer=None):
+    """
+
+    Custom authorizer for AnnotateIt that takes account of whether
+    the user is a global admin or not.
+
+    """
+    u = User.fetch(user)
+    if u is not None and u.is_admin:
+        return True
+    else:
+        return authz.authorize(annotation, action, user, consumer)
+
 # This is not decorated here as it's the before_request handler for
 # the entire application. See annotateit.create_app.
 def before_request():
@@ -17,10 +30,10 @@ def before_request():
 
     # User from session
     username = session.get('user')
-    g.user = User.fetch(username) if username is not None else None
+    g.user = User.fetch(username)
 
     g.auth = auth.Authenticator(Consumer.fetch)
-    g.authorize = authz.authorize
+    g.authorize = authorize
 
     g.after_annotation_create = _add_annotation_link
     g.before_annotation_update = _add_annotation_link
@@ -78,6 +91,8 @@ def auth_token():
     if g.user:
         c = Consumer.fetch('annotateit')
         payload = {'consumerKey': c.key, 'userId': g.user.username, 'ttl': c.ttl}
+        if g.user.is_admin:
+            payload['admin'] = True
         token = auth.encode_token(payload, c.secret)
         return Response(token, headers=headers, mimetype='text/plain')
     else:

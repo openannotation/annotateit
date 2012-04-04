@@ -88,6 +88,16 @@ class TestMain(TestCase):
         h.assert_equal(token['ttl'], 86400)
         h.assert_true('issuedAt' in token)
 
+    def test_api_token_admin(self):
+        self.user.is_admin = True
+        db.session.commit()
+
+        self.login()
+        res = self.cli.get(url_for('main.auth_token'))
+        token = jwt.decode(res.data, 'secret')
+
+        h.assert_equal(token['admin'], True)
+
     def test_cors_preflight(self):
         response = self.cli.open('/api/token', method="OPTIONS", headers={'Origin': 'foo'})
         headers = dict(response.headers)

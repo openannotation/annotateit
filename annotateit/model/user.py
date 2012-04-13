@@ -3,6 +3,7 @@ from datetime import datetime
 from werkzeug import generate_password_hash, check_password_hash
 
 from annotateit import db
+from annotateit.model import Consumer
 
 __all__ = ['User']
 
@@ -15,6 +16,13 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
+    # NB: there is a *big* difference between `consumer` and `consumers`
+    #
+    # `consumer`  - the consumer to which this user belongs (namely AnnotateIt), used by
+    #               auth/authz etc.
+    #
+    # `consumers` - the list of consumers created for this user
+    #
     consumers = db.relationship('Consumer', backref='user', lazy='dynamic')
 
     @classmethod
@@ -39,6 +47,12 @@ class User(db.Model):
         if not self.password_hash:
             return False
         return check_password_hash(self.password_hash, password)
+
+    @property
+    def consumer(self):
+        if not hasattr(self, '_consumer'):
+            self._consumer = Consumer.fetch('annotateit')
+        return self._consumer
 
     @property
     def gravatar_url(self):

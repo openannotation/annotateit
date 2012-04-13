@@ -179,11 +179,13 @@ def home_for_user(username):
 
     bookmarklet = render_template('bookmarklet.js', root=request.host_url.rstrip('/'))
     annotations = Annotation.search(user=g.user.id, limit=20)
+    stats = Annotation.stats_for_user(g.user)
 
     return render_template('user/home.html',
                            user=g.user,
                            bookmarklet=bookmarklet,
-                           annotations=annotations)
+                           annotations=annotations,
+                           stats=stats)
 
 def _add_user(form):
     user = User(username=form.username.data,

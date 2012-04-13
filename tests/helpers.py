@@ -16,3 +16,14 @@ if 'assert_is_instance' not in globals():
 if 'assert_is_not_none' not in globals():
     def assert_is_not_none(obj, *args, **kwargs):
         assert_true(obj is not None, *args, **kwargs)
+
+class MockConsumer(object):
+    def __init__(self, key='mockconsumer'):
+        self.key = key
+        self.secret = 'top-secret'
+        self.ttl = 86400
+
+class MockUser(object):
+    def __init__(self, id='alice', consumer=None):
+        self.id = id
+        self.consumer = MockConsumer(consumer if consumer is not None else 'mockconsumer')

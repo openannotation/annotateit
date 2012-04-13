@@ -43,7 +43,7 @@ def annotations_index():
     else:
         user, consumer = None, None
 
-    annotations = Annotation.search(_user_id=user, _consumer_key=consumer)
+    annotations = Annotation.search(limit=20)
     return render_template('annotations.html', annotations=annotations)
 
 @main.route('/annotations/<regex("[^\.]+"):id>')

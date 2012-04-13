@@ -36,6 +36,16 @@ def index():
     bookmarklet = render_template('bookmarklet.js', root=request.host_url.rstrip('/'))
     return render_template('index.html', bookmarklet=bookmarklet)
 
+@main.route('/annotations')
+def annotations_index():
+    if g.user:
+        user, consumer = g.user.username, 'annotateit'
+    else:
+        user, consumer = None, None
+
+    annotations = Annotation.search(_user_id=user, _consumer_key=consumer)
+    return render_template('annotations.html', annotations=annotations)
+
 @main.route('/annotations/<regex("[^\.]+"):id>')
 @main.route('/annotations/<regex("[^\.]+"):id>.<format>')
 @negotiate(JSEmbedFormatter, template='annotation.embed.js')

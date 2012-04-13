@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Recent annotations{% endblock %}
+
+{% block content %}
+  <h2>Recent annotations</h2>
+  {% from "_annotation.html" import render_annotation %}
+  <div class="recent-annotations">
+  {% for anno in annotations %}
+      {{ render_annotation(anno, user) }}
+  {% else %}
+    <p><em>No recent annotations.</em></p>
+  {% endfor %}
+  </div>
+{% endblock %}

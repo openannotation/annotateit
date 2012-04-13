@@ -8,7 +8,7 @@ from annotateit.model import Consumer
 __all__ = ['User']
 
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    _id = db.Column('id', db.Integer, primary_key=True)
     username = db.Column(db.String(128), unique=True)
     email = db.Column(db.String(128), unique=True)
     password_hash = db.Column(db.String(128))
@@ -47,6 +47,11 @@ class User(db.Model):
         if not self.password_hash:
             return False
         return check_password_hash(self.password_hash, password)
+
+    # Alias username to id for the purposes of authentication
+    @property
+    def id(self):
+        return self.username
 
     @property
     def consumer(self):

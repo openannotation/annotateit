@@ -58,7 +58,7 @@ def view_annotation(id, format=None):
     if ann is None:
         return abort(404)
 
-    if g.authorize(ann, 'read', g.user.username if g.user else None, 'annotateit'):
+    if g.authorize(ann, 'read', g.user):
 
         if ann['consumer'] == 'annotateit':
             user = User.fetch(ann['user'])

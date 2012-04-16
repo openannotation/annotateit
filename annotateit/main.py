@@ -1,14 +1,22 @@
-from flask import Blueprint, Response, url_for
-from flask import current_app, g, request
-from flask import abort, render_template, session
+from flask import Blueprint, Response
+from flask import current_app, g, request, session
+from flask import abort, flash, redirect, render_template, url_for
+from flaskext.wtf import Form, fields as f, validators as v, html5
+from flaskext.mail import Message
 from negotiate.flask import negotiate
 
 from annotator import auth, authz
 
+from annotateit import mail
 from annotateit.model import Annotation, User, Consumer
 from annotateit.formats import HTMLFormatter, JSEmbedFormatter, HTMLEmbedFormatter, JSONFormatter
 
 main = Blueprint('main', __name__)
+
+class ContactForm(Form):
+    name = f.TextField('Name', [])
+    email = html5.EmailField('Email address', [v.Email(message="This should be a valid email address.")])
+    message = f.TextAreaField('Message')
 
 # This is not decorated here as it's the before_request handler for
 # the entire application. See annotateit.create_app.
@@ -36,15 +44,27 @@ def index():
     bookmarklet = render_template('bookmarklet.js', root=request.host_url.rstrip('/'))
     return render_template('index.html', bookmarklet=bookmarklet)
 
+@main.route('/contact', methods=['GET', 'POST'])
+def contact():
+    form = ContactForm()
+
+    if form.validate_on_submit():
+        msg = Message(
+            "AnnotateIt.org contact form",
+            recipients=current_app.config['CONTACT_RECIPIENTS']
+        )
+        msg.body = render_template('contact_email.txt', **form.data)
+        mail.send(msg)
+
+        flash('Your message was sent successfully. Thanks!', 'success')
+        return redirect(url_for('.index'))
+
+    return render_template('contact.html', form=form)
+
 @main.route('/annotations')
 def annotations_index():
-    if g.user:
-        user, consumer = g.user.username, 'annotateit'
-    else:
-        user, consumer = None, None
-
     annotations = Annotation.search(limit=20)
-    return render_template('annotations.html', annotations=annotations)
+    return render_template('401.html'), 401
 
 @main.route('/annotations/<regex("[^\.]+"):id>')
 @main.route('/annotations/<regex("[^\.]+"):id>.<format>')

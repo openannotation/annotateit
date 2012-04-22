@@ -5,7 +5,7 @@
       self = scripts[scripts.length - 1],
       elem = $({{ render_annotation(annotation, user) | tojson }}).insertAfter(self),
       head = document.getElementsByTagName('head')[0],
-      cssUrl = "{{ url_for('static', filename='annotation.css', _external=True) }}";
+      cssUrl = "{{ url_for('static', filename='annotation.embed.css', _external=True) }}";
 
   if (head !== undefined) {
     $('<link rel="stylesheet" href="' + cssUrl + '">').appendTo(head);

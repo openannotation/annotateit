@@ -33,7 +33,16 @@
       </em>
     </p>
 
-    <p><a class=bookmarklet href="javascript:{{bookmarklet}}">AnnotateIt</a></p>
+    <p><a class=bookmarklet href="javascript:{{ bookmarklet }}">AnnotateIt</a></p>
+  </div>
+  <div class=span4>
+    <h2>Account summary</h2>
+    <p>
+      You&rsquo;ve created <strong>{{ stats['num_annotations'] }}</strong> annotations on <strong>{{ stats['num_uris'] }}</strong> different web pages.
+    </p>
+    <p>
+      <a href="#">Manage your annotations &raquo;</a>
+    </p>
   </div>
 </section>
 <hr>

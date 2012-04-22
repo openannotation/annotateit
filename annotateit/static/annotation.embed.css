@@ -1,0 +1,78 @@
+@import url("http://fonts.googleapis.com/css?family=Arvo:700") ;
+.annotateit-annotation {
+  width: 70% !important;
+  max-width: 500px !important;
+  margin: 0 auto !important;
+  background-color: rgba(251, 251, 251, 0.98) !important;
+  border: 1px solid rgba(122, 122, 122, 0.6) !important;
+  font-family: "Helvetica Neue", HelveticaNeue, Helvetica, sans-serif !important;
+  font-size: 12px !important;
+  -webkit-border-radius: 5px !important;
+  -moz-border-radius: 5px !important;
+  border-radius: 5px !important;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) !important;
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) !important;
+}
+.annotateit-annotation .ann-head {
+  margin-top: 8px !important;
+  background: none !important;
+  zoom: 1 !important;
+}
+.annotateit-annotation .ann-head img {
+  float: left !important;
+  width: 50px !important;
+  border: 1px solid #333 !important;
+  padding: 0 !important;
+  margin: 0px 8px !important;
+  background: none !important;
+}
+.annotateit-annotation .ann-head .ann-head-right {
+  width: auto !important;
+  margin: 0px 8px 8px 66px !important;
+  padding: 0 !important;
+}
+.annotateit-annotation .ann-head .ann-head-right .ann-username {
+  font-family: 'Arvo', Arvo, serif !important;
+  font-weight: bold !important;
+  font-size: 20px !important;
+  line-height: 50px !important;
+}
+.annotateit-annotation .ann-head:before,
+.annotateit-annotation .ann-head:after {
+  content: "" !important;
+  display: table !important;
+}
+.annotateit-annotation .ann-head:after {
+  clear: both !important;
+}
+.annotateit-annotation .ann-body {
+  margin: 0px 8px 8px 8px !important;
+}
+.annotateit-annotation .ann-body .text {
+  font-family: Georgia, Palatino, serif !important;
+  margin: 8px 0 !important;
+  font-size: 140% !important;
+}
+.annotateit-annotation .ann-body .null-text {
+  color: #555 !important;
+  margin: 20px 0 !important;
+  font-size: 120% !important;
+  font-style: italic !important;
+}
+.annotateit-annotation .ann-body .ann-meta {
+  color: #aaa !important;
+  font-size: 90% !important;
+  margin: 10px 0 0 0 !important;
+}
+.annotateit-annotation a:link,
+.annotateit-annotation a:visited {
+  color: #aaa !important;
+}
+.annotateit-annotation a:hover,
+.annotateit-annotation a:focus {
+  color: #3665fa !important;
+}
+.annotateit-annotation a:active {
+  color: #f50998 !important;
+}

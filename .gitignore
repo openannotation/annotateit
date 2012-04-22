@@ -3,4 +3,5 @@
 /annotateit.egg-info
 /instance/annotateit.cfg
 /instance/*.db
+/.redo
 *.pyc

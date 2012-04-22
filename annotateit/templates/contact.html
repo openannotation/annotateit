@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% from "_formhelpers.html" import render_field %}
+
+{% block title %}Contact us{% endblock %}
+
+{% block content %}
+
+  <h2>Contact us</h2>
+
+  <p>Please use this form to contact us with comments/suggestions/complaints/love letters etc.</p>
+
+  <hr>
+
+  <form method="post" class="form-horizontal primary">
+    <fieldset>
+      {{ form.hidden_tag() }}
+      {{ render_field(form.name, placeholder="Joe Bloggs") }}
+      {{ render_field(form.email, placeholder="joe.bloggs@example.com", value=g.user.email if g.user else '') }}
+      {{ render_field(form.message, placeholder="Dear AnnotateIt Team, ...", class="input-xlarge", style="height: 200px") }}
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Send us mail!</button>
+      </div>
+    </fieldset>
+  </form>
+
+{% endblock %}

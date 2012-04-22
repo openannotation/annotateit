@@ -1,0 +1,44 @@
+<span id="github-btn" class="github-btn">
+  <a id="gh-btn" href="#" target="_blank" class="gh-btn" title="Watch this project on GitHub">
+    <span class="gh-ico"></span>
+    <span id="gh-text" class="gh-text"></span>
+  </a>
+  <a id="gh-count" href="#" target="_blank" class="gh-count"></a>
+</span>
+<script type="text/javascript">
+  var params = {
+    user: 'okfn',
+    repo: 'annotator'
+  }
+  var head = document.getElementsByTagName('head')[0],
+      button = document.getElementById('gh-btn'),
+      mainButton = document.getElementById('github-btn'),
+      text = document.getElementById('gh-text'),
+      counter = document.getElementById('gh-count');
+
+  // Add commas to numbers
+  function addCommas(n) {
+    return n.toString().replace(/(\d)(?=(\d{3})+$)/g, '$1,')
+  }
+
+  function jsonp(path) {
+    var el = document.createElement('script');
+    el.src = path + '?callback=callback';
+    head.insertBefore(el, head.firstChild);
+  }
+
+  function callback(obj) {
+    counter.innerHTML = addCommas(obj.data.watchers);
+    counter.style.display = 'block';
+  }
+
+  // Set href to be URL for repo
+  button.href = 'https://github.com/' + params.user + '/' + params.repo + '/';
+
+  // Add the class, change the text label, set count link href
+  mainButton.className += ' github-watchers github-btn-large';
+  text.innerHTML = 'Watch';
+  counter.href = 'https://github.com/' + params.user + '/' + params.repo + '/watchers';
+
+  jsonp('https://api.github.com/repos/' + params.user + '/' + params.repo);
+</script></body>

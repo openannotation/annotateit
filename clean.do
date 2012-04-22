@@ -1,0 +1,1 @@
+redo annotateit/static/clean

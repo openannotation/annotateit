@@ -1,0 +1,8 @@
+Contact form email
+==================
+
+Name:  {{ name }} ({% if g.user %}{{ g.user.username }}{% else %}not logged in{% endif %})
+Email: {{ email }}
+Message:
+
+{{ message }}

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  {% block head %}
   <!-- Prevent the conditional comments from stalling page load -->
   <!--[if IE]><![endif]-->
 
@@ -12,10 +11,10 @@
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 
-  <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
   <link href='http://fonts.googleapis.com/css?family=Arvo:400,700|Inconsolata' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="/static/main.css">
-
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  {% block head %}
   {% endblock %}
   {% if not g.debug %}
   <script type="text/javascript">
@@ -109,8 +108,9 @@
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-  <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
-  <script src="/static/vendor/moment.min.js"></script>
-  <script src="/static/main.js"></script>
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/moment.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='static/main.js') }}"></script>
+  {% block script %}{% endblock %}
 </body>
 </html>

@@ -29,6 +29,25 @@ class TestUser(TestCase):
         h.assert_in('Location', resp.headers)
         h.assert_true(resp.headers['Location'].endswith(url_for('user.login')))
 
+    def test_home_post(self):
+        """Update user data if logged in"""
+        self.login()
+        self.cli.post(url_for('user.home_for_user', username='test'), data={'email': 'foo@foo.com'})
+        u = User.fetch('test')
+        h.assert_equal(u.email, 'foo@foo.com')
+
+    def test_home_post_returns_changed_field(self):
+        self.login()
+        resp = self.cli.post(url_for('user.home_for_user', username='test'), data={'email': 'foo@foo.com'})
+        h.assert_equal(resp.status_code, 200)
+        h.assert_equal(resp.data, 'foo@foo.com')
+
+    def test_home_post_data_validation(self):
+        self.login()
+        resp = self.cli.post(url_for('user.home_for_user', username='test'), data={'email': 'foo'})
+        h.assert_equal(resp.status_code, 400)
+        h.assert_equal(resp.data, 'This should be a valid email address.')
+
     def test_login_logged_out(self):
         """Ask for relevant details to log in"""
         resp = self.cli.get(url_for('user.login'))

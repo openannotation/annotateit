@@ -186,6 +186,14 @@ form.primary {
 .thumbnails img {
   margin-bottom: 10px;
 }
+.editable:hover {
+  background: #ffc;
+}
+.editable:hover:after {
+  font-size: 0.8em;
+  color: #aaa;
+  content: " click to edit…";
+}
 /**************************************
   * Annotation display
   *************************************/

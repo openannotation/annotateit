@@ -1,6 +1,6 @@
-from flask import Blueprint
-from flask import current_app, g
-from flask import abort, redirect, request, url_for, render_template, session, flash
+from flask import Blueprint, Response
+from flask import current_app, g, session
+from flask import abort, redirect, request, url_for, render_template, flash
 
 from flaskext.wtf import Form, fields as f, validators as v, html5
 from flaskext.mail import Message
@@ -186,6 +186,27 @@ def home_for_user(username):
                            bookmarklet=bookmarklet,
                            annotations=annotations,
                            stats=stats)
+
+@user.route('/<username>', methods=['POST'])
+@util.require_user
+def update_user(username):
+    if username != g.user.username:
+        abort(401)
+
+    allowed_fields = ('email',)
+
+    for k, v in request.form.iteritems():
+        if k in allowed_fields:
+            form = SignupForm()
+            form.validate()
+
+            if k in form.errors:
+                return Response('\n'.join(form.errors[k]), mimetype='text/plain', status=400)
+            else:
+                setattr(g.user, k, v)
+                db.session.commit()
+                return Response(getattr(g.user, k), mimetype='text/plain')
+
 
 def _add_user(form):
     user = User(username=form.username.data,

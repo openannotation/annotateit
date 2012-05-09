@@ -60,6 +60,6 @@ class User(db.Model, Timestamps):
 
     @property
     def gravatar_url(self):
-        hsh = md5(self.email.strip().lower()).hexdigest()
+        hsh = md5(self.email.strip().lower().encode('utf-8')).hexdigest()
         url = 'http://www.gravatar.com/avatar/{hash}?d=mm'.format(hash=hsh)
         return url

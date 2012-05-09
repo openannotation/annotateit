@@ -18,9 +18,9 @@
       <dd>
         <time
           class='js-relative-date'
-          datetime='{{ user.created_at }}'
+          datetime='{{ user.created_at.isoformat() }}'
           title='{{ user.created_at }}'>
-          {{ user.created_at | pretty_date }}
+          {{ user.created_at }}
         </time>
       </dd>
     </dl>

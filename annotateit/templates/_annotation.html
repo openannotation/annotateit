@@ -25,8 +25,8 @@
           <time
             class='js-relative-date ann-updated'
             datetime='{{ annotation['updated'] }}'
-            title='{{ annotation['updated'] }}'>
-            {{ annotation['updated'] | pretty_date }}</time></a>
+            title='{{ annotation['updated'] }}'
+          >{{ annotation['updated'] | pretty_date }}</time></a>
         on
         &ldquo;<span class='quote'>{{ annotation['quote'] | truncate(25, killwords=True) }}</span>&rdquo;
         {% if 'uri' in annotation %}

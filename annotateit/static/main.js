@@ -23,7 +23,7 @@ jQuery(function ($) {
 
   $('.grabfocus').eq(0).focus();
 
-  $('.editable').on('click', function (event) {
+  function editableClick (event) {
     var key = $(this).data('key');
 
     if (typeof key === 'undefined' || key == null) {
@@ -32,13 +32,18 @@ jQuery(function ($) {
 
     var self = this;
     var text = $(this).text();
-    var form = '<form class="form-inline"><input type=text name="' + key + '"></form>';
+    var form = '<form class="inline-edit"><input type=text name="' + key + '"></form>';
     var data = {};
 
     var $f = $(form);
     var $i = $f.find('input');
 
-    var restore = function (val) { $(self).text(val).addClass('editable'); }
+    var restore = function (val) { 
+      $(self)
+        .text(val)
+        .addClass('editable')
+        .one('click', editableClick);
+    };
 
     $(this)
       .html($f)
@@ -58,5 +63,7 @@ jQuery(function ($) {
           alert("Error updating field:\n" + resp.responseText);
         });
     });
-  });
+  }
+
+  $('.editable').one('click', editableClick);
 });

@@ -194,6 +194,14 @@ form.primary {
   color: #aaa;
   content: " click to edit…";
 }
+form.inline-edit {
+  margin: 0;
+}
+form.inline-edit input {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin: 0;
+}
 /**************************************
   * Annotation display
   *************************************/

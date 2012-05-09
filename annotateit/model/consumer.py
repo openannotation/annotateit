@@ -2,6 +2,7 @@ from datetime import datetime
 import uuid
 
 from annotateit import db
+from annotateit.model.timestamps import Timestamps
 
 __all__ = ['Consumer']
 
@@ -17,14 +18,11 @@ def _uuid():
 def _uuid_hex():
     return uuid.uuid4().hex
 
-class Consumer(db.Model):
+class Consumer(db.Model, Timestamps):
     id = db.Column(db.Integer, primary_key=True)
     key = db.Column(db.String(80), unique=True, default=_uuid_hex)
     secret = db.Column(db.String(36), default=_uuid)
     ttl = db.Column(db.Integer, default=86400)
-
-    created_at = db.Column(db.DateTime, default=datetime.now)
-    updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 

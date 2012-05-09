@@ -15,7 +15,14 @@
       <dt>Email address</dt>
       <dd>{{user.email}}</dd>
       <dt>Registered since</dt>
-      <dd>{{user.created_at}}</dd>
+      <dd>
+        <time
+          class='js-relative-date'
+          datetime='{{ user.created_at }}'
+          title='{{ user.created_at }}'>
+          {{ user.created_at | pretty_date }}
+        </time>
+      </dd>
     </dl>
   </div>
   <div class=span4>

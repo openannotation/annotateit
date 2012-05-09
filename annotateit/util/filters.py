@@ -6,14 +6,19 @@ def pretty_date(time=False):
     """
     import iso8601
     from datetime import datetime
-    now = datetime.now(iso8601.iso8601.UTC)
+    now = datetime.utcnow()
 
     if type(time) is int:
-        diff = now - datetime.fromtimestamp(time)
+        diff = now - datetime.utcfromtimestamp(time)
     elif isinstance(time, datetime):
+        if time.utcoffset():
+            time = time.replace(tzinfo=None) - time.utcoffset()
         diff = now - time
     elif isinstance(time, basestring):
-        diff = now - iso8601.parse_date(time)
+        time = iso8601.parse_date(time)
+        # convert to UTC
+        time = time.replace(tzinfo=None) - time.utcoffset()
+        diff = now - time
     elif not time:
         diff = now - now
 

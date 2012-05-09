@@ -31,21 +31,22 @@ jQuery(function ($) {
     }
 
     var self = this;
-    var form = '<form><input type=text name="' + key + '"></form>';
+    var text = $(this).text();
+    var form = '<form class="form-inline"><input type=text name="' + key + '"></form>';
     var data = {};
 
     var $f = $(form);
     var $i = $f.find('input');
 
-    var restore = function (val) { $(self).text(val).replaceAll($f); }
+    var restore = function (val) { $(self).text(val).addClass('editable'); }
 
     $(this)
-      .after($f)
-      .detach()
+      .html($f)
+      .removeClass('editable');
 
-    $i.val(this.innerText)
+    $i.val(text)
       .focus()
-      .on('blur', function () { restore(self.innerText); })
+      .on('blur', function () { restore(text); });
 
     $f.on('submit', function (e) {
       e.preventDefault();
@@ -53,7 +54,7 @@ jQuery(function ($) {
       $.post('', data)
         .done(restore)
         .fail(function(resp) {
-          restore(self.innerText);
+          restore(text);
           alert("Error updating field:\n" + resp.responseText);
         });
     });

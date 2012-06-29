@@ -8,17 +8,22 @@ __all__ = ['create_app', 'create_db', 'drop_db',
            'create_indices', 'drop_indices',
            'create_all', 'drop_all']
 
+from logging import getLogger
+
 from flask import Flask
 from flaskext.sqlalchemy import SQLAlchemy
 from flaskext.mail import Mail
 
 from annotator import es # ElasticSearch object
-db = SQLAlchemy()
-mail = Mail()
 
 from annotateit.config import configure
 
+log = getLogger(__name__)
+db = SQLAlchemy()
+mail = Mail()
+
 def create_app():
+    log.debug("Creating %s application", __name__)
     app = Flask(__name__)
 
     configure(app)
@@ -54,6 +59,7 @@ def create_app():
     app.errorhandler(404)(main.page_not_found)
     app.errorhandler(401)(main.not_authorized)
 
+    log.debug("Successfully created %s application", __name__)
     return app
 
 def create_indices(app):

@@ -1,3 +1,5 @@
+from logging import getLogger
+
 from flask import Blueprint, Response
 from flask import current_app, g, request, session
 from flask import abort, flash, redirect, render_template, url_for
@@ -10,6 +12,8 @@ from annotator import auth, authz
 from annotateit import mail
 from annotateit.model import Annotation, User, Consumer
 from annotateit.formats import HTMLFormatter, JSEmbedFormatter, HTMLEmbedFormatter, JSONFormatter
+
+log = getLogger(__name__)
 
 main = Blueprint('main', __name__)
 

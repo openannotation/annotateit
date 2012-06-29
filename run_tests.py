@@ -1,10 +1,14 @@
-import os
+from os import environ as env
 import nose
 
 if __name__ == '__main__':
-    if not 'ANNOTATEIT_CONFIG' in os.environ:
-        here = os.path.abspath(os.path.dirname(__file__))
-        os.environ['ANNOTATEIT_CONFIG'] = os.path.join(here, 'tests', 'test.cfg')
+
+    env['DEBUG'] = 'True'
+    env['TESTING'] = 'True'
+    env['CSRF_ENABLED'] = 'False'
+    env['DATABASE_URL'] = 'sqlite:///:memory:'
+    env['ELASTICSEARCH_INDEX'] = 'annotator_test'
+    env['SECRET_KEY'] = 'test-random-secret-key'
 
     nose.run()
 

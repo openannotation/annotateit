@@ -4,10 +4,12 @@ Backend for web annotation.
 @copyright: (c) 2006-2012 Open Knowledge Foundation
 """
 
-__all__ = ['__version__', '__license__', '__author__',
-           'create_app', 'create_db', 'drop_db',
+__all__ = ['create_app', 'create_db', 'drop_db',
            'create_indices', 'drop_indices',
            'create_all', 'drop_all']
+
+import urlparse
+from os import environ
 
 from flask import Flask
 from flaskext.sqlalchemy import SQLAlchemy
@@ -17,14 +19,12 @@ from annotator import es # ElasticSearch object
 db = SQLAlchemy()
 mail = Mail()
 
+from annotateit.config import configure
+
 def create_app():
-    app = Flask(__name__, instance_relative_config=True)
+    app = Flask(__name__)
 
-    app.config.from_object('annotateit.default_settings')
-    app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'] % app.instance_path
-
-    app.config.from_pyfile('annotateit.cfg', silent=True)
-    app.config.from_envvar('ANNOTATEIT_CONFIG', silent=True)
+    configure(app)
 
     # Configure database
     db.init_app(app)

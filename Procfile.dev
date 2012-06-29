@@ -1,0 +1,1 @@
+web: gunicorn 'annotateit:create_app()' -b 0.0.0.0:$PORT --name annotateit --log-config logging.cfg

@@ -1,4 +1,5 @@
 from os import environ as env
+import urlparse
 
 class ConfigError(Exception):
     pass

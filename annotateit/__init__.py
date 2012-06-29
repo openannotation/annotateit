@@ -8,9 +8,6 @@ __all__ = ['create_app', 'create_db', 'drop_db',
            'create_indices', 'drop_indices',
            'create_all', 'drop_all']
 
-import urlparse
-from os import environ
-
 from flask import Flask
 from flaskext.sqlalchemy import SQLAlchemy
 from flaskext.mail import Mail

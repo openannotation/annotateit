@@ -1,7 +1,5 @@
-from __future__ import print_function
 from sqlalchemy import *
 from migrate import *
-from migrate.changeset.constraint import CheckConstraint
 
 meta = MetaData()
 

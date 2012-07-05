@@ -16,7 +16,7 @@ class Annotation(Annotation_):
 
         stats['num_annotations'] = cls.es.conn.count({'filtered': q})['count']
 
-        uris_res = cls.es.conn.search({
+        uris_res = cls.es.conn.search_raw({
             'query': {'filtered': q},
             'facets': {'uri': {'terms': {'field': 'uri'}}},
             'size': 0

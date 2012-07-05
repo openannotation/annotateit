@@ -25,14 +25,14 @@ def configure(app):
                                                 'AnnotateIt <no-reply@annotateit.org>'))
 
     # ElasticSearch config
-    c.setdefault('ELASTICSEARCH_HOST', env.get('ELASTICSEARCH_HOST', '127.0.0.1:9200'))
+    c.setdefault('ELASTICSEARCH_HOST', env.get('ELASTICSEARCH_HOST', 'http://127.0.0.1:9200'))
     c.setdefault('ELASTICSEARCH_INDEX', env.get('ELASTICSEARCH_INDEX', 'annotateit'))
 
     # Bonsai (on Heroku)
     bonsai_url = env.get('BONSAI_INDEX_URL')
     if bonsai_url:
         url = urlparse.urlparse(bonsai_url)
-        c['ELASTICSEARCH_HOST']  = url.netloc
+        c['ELASTICSEARCH_HOST']  = '%s://%s' % (url.scheme, url.netloc)
         c['ELASTICSEARCH_INDEX'] = url.path[1:]
 
     # Postgres (on Heroku)

@@ -14,9 +14,9 @@ def configure(app):
     c['AUTHZ_ON']     = _switch('AUTHZ_ON', True)
 
     # Required settings
-    c['SECRET_KEY']            = _required('SECRET_KEY')
-    c['RECAPTCHA_PUBLIC_KEY']  = _required('RECAPTCHA_PUBLIC_KEY')
-    c['RECAPTCHA_PRIVATE_KEY'] = _required('RECAPTCHA_PRIVATE_KEY')
+    c['SECRET_KEY']            = env.get('SECRET_KEY')
+    c['RECAPTCHA_PUBLIC_KEY']  = env.get('RECAPTCHA_PUBLIC_KEY')
+    c['RECAPTCHA_PRIVATE_KEY'] = env.get('RECAPTCHA_PRIVATE_KEY')
 
     # Optional settings
     c.setdefault('SQLALCHEMY_DATABASE_URI', env.get('DATABASE_URL',
@@ -43,13 +43,16 @@ def configure(app):
     # Load from file if available
     c.from_envvar('ANNOTATEIT_SETTINGS', silent=True)
 
-def _required(key):
-    val = env.get(key)
-    if val is None:
+    # Throw errors
+    _require(c, 'SECRET_KEY')
+    _require(c, 'RECAPTCHA_PUBLIC_KEY')
+    _require(c, 'RECAPTCHA_PRIVATE_KEY')
+
+def _require(config, key):
+    if config.get(key) is None:
         raise ConfigError("You must set the %s environment variable! "
                           "See annotateit/config.py for details."
                           % key)
-    return val
 
 def _switch(key, default=False):
     if key in env:

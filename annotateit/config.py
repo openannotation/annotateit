@@ -7,13 +7,13 @@ class ConfigError(Exception):
 def configure(app):
     c = app.config
 
-    c['DEBUG']        = _switch('DEBUG', False)
-    c['TESTING']      = _switch('TESTING', False)
+    app.debug   = _switch('DEBUG', False)
+    app.testing = _switch('TESTING', False)
+
     c['CSRF_ENABLED'] = _switch('CSRF_ENABLED', True)
     c['AUTH_ON']      = _switch('AUTH_ON', True)
     c['AUTHZ_ON']     = _switch('AUTHZ_ON', True)
 
-    # Required settings
     c['SECRET_KEY']            = env.get('SECRET_KEY')
     c['RECAPTCHA_PUBLIC_KEY']  = env.get('RECAPTCHA_PUBLIC_KEY')
     c['RECAPTCHA_PRIVATE_KEY'] = env.get('RECAPTCHA_PRIVATE_KEY')

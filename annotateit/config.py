@@ -41,7 +41,7 @@ def configure(app):
         c['SQLALCHEMY_DATABASE_URI'] = postgres_url
 
     # Load from file if available
-    c.from_envvar('ANNOTATEIT_SETTINGS', silent=True)
+    c.from_envvar('ANNOTATEIT_CONFIG', silent=True)
 
     # Throw errors
     _require(c, 'SECRET_KEY')

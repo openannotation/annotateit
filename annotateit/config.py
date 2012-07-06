@@ -40,6 +40,9 @@ def configure(app):
     if postgres_url:
         c['SQLALCHEMY_DATABASE_URI'] = postgres_url
 
+    # Load from file if available
+    c.from_envvar('ANNOTATEIT_SETTINGS', silent=True)
+
 def _required(key):
     val = env.get(key)
     if val is None:

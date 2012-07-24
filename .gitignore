@@ -1,6 +1,6 @@
 /.coverage
 /cover
-/pyenv
+/.env
 /annotateit.egg-info
 /instance/annotateit.cfg
 /instance/*.db

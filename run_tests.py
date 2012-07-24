@@ -14,6 +14,4 @@ if __name__ == '__main__':
         'RECAPTCHA_PRIVATE_KEY': 'test-recaptcha-private-key'
     })
 
-    nose.run()
-
-
+    nose.main()

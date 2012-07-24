@@ -1,6 +1,7 @@
 /.coverage
 /cover
 /.env
+/.tox
 /annotateit.egg-info
 /instance/annotateit.cfg
 /instance/*.db

@@ -35,11 +35,6 @@ def configure(app):
         c['ELASTICSEARCH_HOST']  = '%s://%s' % (url.scheme, url.netloc)
         c['ELASTICSEARCH_INDEX'] = url.path[1:]
 
-    # Postgres (on Heroku)
-    postgres_url = env.get('HEROKU_POSTGRESQL_CYAN_URL')
-    if postgres_url:
-        c['SQLALCHEMY_DATABASE_URI'] = postgres_url
-
     # Load from file if available
     c.from_envvar('ANNOTATEIT_CONFIG', silent=True)
 

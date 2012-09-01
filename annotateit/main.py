@@ -119,6 +119,11 @@ def auth_token():
     else:
         return Response('Please go to {0} to log in!'.format(request.host_url), status=401, headers=headers, mimetype='text/plain')
 
+
+@main.route('/api/search_raw', methods=['GET', 'POST'])
+def search_raw_disabled():
+    return Response('Sorry, the raw search API is disabled because of aliens. Or something.', status=451, mimetype='text/plain')
+
 def _get_session_user():
     username = session.get('user')
     if username is None:

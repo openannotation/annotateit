@@ -7,5 +7,5 @@ services:
   - elasticsearch
 install:
   - pip install . --use-mirrors
-env: TESTING=true CSRF_ENABLED=false ELASTICSEARCH_INDEX=annotator_test DATABASE_URL=sqlite:///:memory: RECAPTCHA_PUBLIC_KEY=test_recaptcha_public_key RECAPTCHA_PRIVATE_KEY=test_recaptcha_private_key SECRET_KEY=test_secret_key
+env: "TESTING=true CSRF_ENABLED=false ELASTICSEARCH_INDEX=annotator_test DATABASE_URL=sqlite:///:memory: RECAPTCHA_PUBLIC_KEY=test_recaptcha_public_key RECAPTCHA_PRIVATE_KEY=test_recaptcha_private_key SECRET_KEY=test_secret_key"
 script: nosetests

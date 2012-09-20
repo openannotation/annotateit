@@ -14,7 +14,7 @@ setup(
         'SQLAlchemy==0.7.8',
         'sqlalchemy-migrate==0.7.2',
         'itsdangerous==0.17',
-        'decorator==3.3.2',
+        'decorator==3.3.3',
         'iso8601==0.1.4',
         'negotiate==0.0.1'
     ],

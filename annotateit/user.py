@@ -3,7 +3,7 @@ from flask import current_app, g, session
 from flask import abort, redirect, request, url_for, render_template, flash
 
 from flaskext.wtf import Form, fields as f, validators as v, html5
-from flaskext.mail import Message
+from flask_mail import Message
 
 import itsdangerous
 import sqlalchemy

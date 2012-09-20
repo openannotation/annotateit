@@ -12,7 +12,7 @@ from logging import getLogger
 
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
-from flaskext.mail import Mail
+from flask_mail import Mail
 
 from annotator import es # ElasticSearch object
 

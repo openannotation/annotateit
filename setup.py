@@ -8,7 +8,7 @@ setup(
     install_requires = [
         'annotator==0.9.0',
         'Flask==0.9',
-        'Flask-Mail==0.6.1',
+        'Flask-Mail==0.7.2',
         'Flask-SQLAlchemy==0.16',
         'Flask-WTF==0.5.4',
         'SQLAlchemy==0.7.8',

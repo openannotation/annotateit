@@ -11,7 +11,7 @@ __all__ = ['create_app', 'create_db', 'drop_db',
 from logging import getLogger
 
 from flask import Flask
-from flaskext.sqlalchemy import SQLAlchemy
+from flask.ext.sqlalchemy import SQLAlchemy
 from flaskext.mail import Mail
 
 from annotator import es # ElasticSearch object

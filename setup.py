@@ -13,7 +13,7 @@ setup(
         'Flask-WTF==0.8',
         'SQLAlchemy==0.7.8',
         'sqlalchemy-migrate==0.7.2',
-        'itsdangerous==0.12',
+        'itsdangerous==0.17',
         'decorator==3.3.2',
         'iso8601==0.1.4',
         'negotiate==0.0.1'

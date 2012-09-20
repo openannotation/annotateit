@@ -2,7 +2,7 @@ from flask import Blueprint, Response
 from flask import current_app, g, session
 from flask import abort, redirect, request, url_for, render_template, flash
 
-from flaskext.wtf import Form, fields as f, validators as v, html5
+from flask.ext.wtf import Form, fields as f, validators as v, html5
 from flask_mail import Message
 
 import itsdangerous

@@ -10,7 +10,7 @@ setup(
         'Flask==0.9',
         'Flask-Mail==0.7.2',
         'Flask-SQLAlchemy==0.16',
-        'Flask-WTF==0.5.4',
+        'Flask-WTF==0.8',
         'SQLAlchemy==0.7.8',
         'sqlalchemy-migrate==0.7.2',
         'itsdangerous==0.12',

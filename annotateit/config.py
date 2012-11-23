@@ -33,7 +33,6 @@ def configure(app):
     if bonsai_url:
         url = urlparse.urlparse(bonsai_url)
         c['ELASTICSEARCH_HOST']  = '%s://%s' % (url.scheme, url.netloc)
-        c['ELASTICSEARCH_INDEX'] = url.path[1:]
 
     # Load from file if available
     c.from_envvar('ANNOTATEIT_CONFIG', silent=True)

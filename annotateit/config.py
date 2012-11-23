@@ -29,7 +29,7 @@ def configure(app):
     c.setdefault('ELASTICSEARCH_INDEX', env.get('ELASTICSEARCH_INDEX', 'annotateit'))
 
     # Bonsai (on Heroku)
-    bonsai_url = env.get('BONSAI_INDEX_URL')
+    bonsai_url = env.get('BONSAI_URL')
     if bonsai_url:
         url = urlparse.urlparse(bonsai_url)
         c['ELASTICSEARCH_HOST']  = '%s://%s' % (url.scheme, url.netloc)

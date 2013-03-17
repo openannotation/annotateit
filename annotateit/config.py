@@ -14,6 +14,7 @@ def configure(app):
     c['AUTH_ON']      = _switch('AUTH_ON', True)
     c['AUTHZ_ON']     = _switch('AUTHZ_ON', True)
 
+    c['CONTACT_RECIPIENTS']    = env.get('CONTACT_RECIPIENTS', '').split(',')
     c['SECRET_KEY']            = env.get('SECRET_KEY')
     c['RECAPTCHA_PUBLIC_KEY']  = env.get('RECAPTCHA_PUBLIC_KEY')
     c['RECAPTCHA_PRIVATE_KEY'] = env.get('RECAPTCHA_PRIVATE_KEY')

@@ -35,6 +35,15 @@ def configure(app):
         url = urlparse.urlparse(bonsai_url)
         c['ELASTICSEARCH_HOST']  = '%s://%s' % (url.scheme, url.netloc)
 
+    # Mandrill (on Heroku)
+    mandrill_username = env.get('MANDRILL_USERNAME')
+    if mandrill_username:
+        c['MAIL_SERVER'] = 'smtp.mandrillapp.com'
+        c['MAIL_PORT'] = 587
+        c['MAIL_USE_TLS'] = True
+        c['MAIL_USERNAME'] = mandrill_username
+        c['MAIL_PASSWORD'] = env['MANDRILL_APIKEY']
+
     # Load from file if available
     c.from_envvar('ANNOTATEIT_CONFIG', silent=True)
 

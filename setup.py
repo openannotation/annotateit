@@ -6,7 +6,7 @@ setup(
     packages = find_packages(),
 
     install_requires = [
-        'annotator==0.9.3',
+        'annotator==0.11.1',
         'Flask==0.9',
         'Flask-Mail==0.7.2',
         'Flask-SQLAlchemy==0.16',

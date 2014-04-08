@@ -1,12 +1,12 @@
-import pyes
-
 import annotateit
+import elasticsearch
+
 
 def setup():
     app = annotateit.create_app()
     try:
         annotateit.drop_all(app)
-    except pyes.exceptions.ElasticSearchException:
+    except elasticsearch.exceptions.NotFoundError:
         pass
 
 

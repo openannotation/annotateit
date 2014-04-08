@@ -14,14 +14,17 @@ class Annotation(Annotation_):
                                 {'or': [{'term': {'user': user.id}},
                                         {'term': {'user.id': user.id}}]}]}}
 
-        res = cls.es.conn.count({'filtered': q}, cls.es.index, cls.__type__)
+        res = cls.es.conn.count(index=cls.es.index,
+                                doc_type=cls.__type__,
+                                body={'query': {'filtered': q}})
         stats['num_annotations'] = res['count']
 
-        uris_res = cls.es.conn.search_raw({
-            'query': {'filtered': q},
-            'facets': {'uri': {'terms': {'field': 'uri'}}},
-            'size': 0
-        }, cls.es.index, cls.__type__)
+        uris_res = cls.es.conn.search(
+            index=cls.es.index,
+            doc_type=cls.__type__,
+            body={'query': {'filtered': q},
+                  'facets': {'uri': {'terms': {'field': 'uri'}}},
+                  'size': 0})
         stats['num_uris'] = len(uris_res['facets']['uri']['terms'])
 
         return stats

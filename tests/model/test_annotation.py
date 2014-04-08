@@ -12,7 +12,7 @@ class TestAnnotation(TestCase):
         Annotation({'user': 'alice', 'consumer': 'fooconsumer', 'uri': 'b'}).save()
         Annotation({'user': 'bob', 'consumer': 'fooconsumer', 'uri': 'b'}).save()
 
-        Annotation.es.conn.refresh(timesleep=0.01)
+        Annotation.es.conn.cluster.health(wait_for_status='yellow')
 
         stats = Annotation.stats_for_user(g.user)
         h.assert_equal(stats['num_annotations'], 3)

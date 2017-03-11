@@ -3,102 +3,30 @@
 
 {% block content %}
   <section class=clearfix>
-    <img class="float-right" src="/static/images/annotator.png" alt="The Annotator" height="223" width="370" />
-    <h2>Annotate anything</h2>
+    <h2>AnnotateIt is closing its doors</h2>
     <p>
-      Now you can annotate anything, anywhere on the web, by
-      <a href="{{url_for('user.signup')}}">signing up</a>
-      and installing our bookmarklet!
+      <strong>March 11, 2017.</strong>
+      AnnotateIt is now closed, but the project to annotate the web continues.
+      The <a href="https://www.w3.org">W3C</a> has 
+      <a href="https://hypothes.is/blog/annotation-is-now-a-web-standard/">recently
+      standardised</a> annotation, and development over at
+      <a href="https://hypothes.is">Hypothesis</a> continues apace.
     </p>
-    <ul>
-      <li>Annotate any webpage with the bookmarklet</li>
-      <li>Add the Annotator to your own site in just two lines of code</li>
-    </ul>
-    <p><a href="{{ url_for('user.signup') }}">Sign Up Now &raquo;</a></p>
-
-    <hr>
-
-    <a href="https://twitter.com/theannotator" class="twitter-follow-button" data-show-count="true" data-size="large">Follow @theannotator</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-    {% include '_github.html' %}
-  </section>
-
-  <hr>
-
-  <section id="about" class=row>
-    <div id="annotator" class=span6>
-      <h2>The Annotator</h2>
-      <div class="row thumbnails">
-        <div class=span3><img src="/static/images/thumb-add.png" alt="Highlight text to annotate" height="128" width="175"></div>
-        <div class=span3><img src="/static/images/thumb-viewer.png" alt="View annotations by moving your mouse over highlights" height="128" width="175"></div>
-      </div>
-
-      <p>
-        The Annotator is a Javascript tool that can be added to any webpage
-        to allow annotation. Annotations can have tags,
-        <a href="http://daringfireball.com/projects/markdown">Markdown</a> content,
-        per-annotation permissions and more. See a
-        <a href="http://okfn.github.com/annotator/demo/">live demonstration</a>
-        or learn more in the <a href="#develop">developers section</a> below.
-      </p>
-
-    </div>
-
-    <div class=span6>
-      <h2>The Bookmarklet</h2>
-      <div class="row thumbnails">
-        <div class=span3><img src="/static/images/thumb-bookmarklet.png" alt="Add the annotator to any page with the bookmarklet" height="128" width="175"></div>
-        <div class=span3><img src="/static/images/thumb-editor.png" alt="Save annotations to AnnotateIt" height="128" width="175"></div>
-      </div>
-      <p>
-        The bookmarklet allows you to add Annotator to any
-        web page and save your annotations to AnnotateIt.
-        Drag this bookmarklet to your bookmarks bar now and then
-        <a href="{{url_for('user.signup')}}">sign up</a>
-        for an account:
-      </p>
-      <p><a class=bookmarklet href="javascript:{{bookmarklet}}">AnnotateIt</a></p>
-    </div>
-  </section>
-
-  <hr>
-
-  <section>
-    <h2 id="develop">Developers</h2>
-    <div class=row>
-      <div class=span6>
-        <p>
-          Allowing our users to annotate your webpage is easy. First you'll
-          need to <a
-          href="https://github.com/okfn/annotator/downloads">download the
-          source code</a> (or you can use our hosted version) and include it
-          on your page along with jQuery. Then simply add the following lines  
-          to load the Annotator, allowing
-          users with AnnotateIt accounts to start annotating immediately:
-        </p>
-        <pre><code>$(<span class=string>'#content'</span>).annotator()
-             .annotator(<span class=string>'setupPlugins'</span>);</code></pre>
-        <p>
-          For full details, see the <a href="https://github.com/okfn/annotator/wiki/Getting-Started">Getting Started</a> page on the <a href="https://github.com/okfn/annotator/wiki">Annotator wiki</a>.
-        </p>
-      </div>
-      <div class=span6>
-        <p>If you want more control, or you don't want your users (who might already
-           have accounts on your website) to need accounts here at AnnotateIt, we provide
-           support for <strong>delegated authentication</strong>: you control who gets
-           to annotate, and AnnotateIt will store annotations for you and your users.</p>
-
-        <p>Setting up delegated authentication is a little more involved, and you should
-           <a href="https://github.com/okfn/annotator/">go see the documentation</a>
-           for the full details. That said, once you've set up your token generator (see the docs)
-           the code is still pretty simple:
-        </p>
-        <pre><code>$(<span class=string>'#content'</span>).annotator()
-             .annotator(<span class=string>'setupPlugins'</span>, {
-               tokenUrl: <span class=string>'http://example.com/getToken'</span>
-             });</code></pre>
-      </div>
-    </div>
+    <p>
+      If you're interested in making your own annotations on the web, we
+      encourage you to check out <a href="https://hypothes.is">Hypothesis</a>,
+      which is built and maintained by the people who made Annotator and
+      AnnotateIt.
+    </p>
+    <p>
+      If you have an AnnotateIt account, you can still 
+      <a href="{{ url_for('user.login') }}">log in</a>, but we are now closed 
+      for signups.
+    </p>
+    <p>
+      We do not currently have a timescale for shutting down the service fully,
+      but we recommend that if you want to keep your data, you use
+      <a href-"http://annotateit.org/api/">the API</a> to export it.
+    <p>
   </section>
 {% endblock %}

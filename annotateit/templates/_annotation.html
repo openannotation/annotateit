@@ -21,12 +21,11 @@
       {% endif %}
       <p class='ann-meta'>
         made
-        <a href="{{ url_for('main.view_annotation', id=annotation['id'], _external=True) }}">
-          <time
-            class='js-relative-date ann-updated'
-            datetime='{{ annotation['updated'] }}'
-            title='{{ annotation['updated'] }}'
-          >{{ annotation['updated'] | pretty_date }}</time></a>
+        <time
+          class='js-relative-date ann-updated'
+          datetime='{{ annotation['updated'] }}'
+          title='{{ annotation['updated'] }}'
+        >{{ annotation['updated'] | pretty_date }}</time>
         on
         &ldquo;<span class='quote'>{{ annotation['quote'] | truncate(25, killwords=True) }}</span>&rdquo;
         {% if 'uri' in annotation %}

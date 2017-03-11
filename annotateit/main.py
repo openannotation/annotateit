@@ -5,13 +5,11 @@ from flask import current_app, g, request, session
 from flask import abort, flash, redirect, render_template, url_for
 from flask.ext.wtf import Form, fields as f, validators as v, html5
 from flask_mail import Message
-from negotiate.flask import negotiate
 
 from annotator import auth, authz
 
 from annotateit import mail
 from annotateit.model import Annotation, User, Consumer
-from annotateit.formats import HTMLFormatter, JSEmbedFormatter, HTMLEmbedFormatter, JSONFormatter
 
 log = getLogger(__name__)
 
@@ -45,8 +43,7 @@ def not_authorized(e):
 
 @main.route('/')
 def index():
-    bookmarklet = render_template('bookmarklet.js', root=request.host_url.rstrip('/'))
-    return render_template('index.html', bookmarklet=bookmarklet)
+    return render_template('index.html')
 
 @main.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -64,34 +61,6 @@ def contact():
         return redirect(url_for('.index'))
 
     return render_template('contact.html', form=form)
-
-@main.route('/annotations')
-def annotations_index():
-    annotations = Annotation.search(limit=20)
-    return render_template('401.html'), 401
-
-@main.route('/annotations/<regex("[^\.]+"):id>')
-@main.route('/annotations/<regex("[^\.]+"):id>.<format>')
-@negotiate(JSEmbedFormatter, template='annotation.embed.js')
-@negotiate(HTMLEmbedFormatter, template='annotation.embed.html')
-@negotiate(JSONFormatter, key='annotation')
-@negotiate(HTMLFormatter, template='annotation.html')
-def view_annotation(id, format=None):
-    ann = Annotation.fetch(id)
-
-    if ann is None:
-        return abort(404)
-
-    if g.authorize(ann, 'read', g.user):
-
-        if ann['consumer'] == 'annotateit':
-            user = User.fetch(ann['user'])
-        else:
-            user = None
-
-        return {'annotation': ann, 'user': user}
-
-    abort(401)
 
 # AUTH TOKEN
 @main.route('/api/token', methods=['GET', 'OPTIONS'])

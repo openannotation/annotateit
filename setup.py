@@ -16,6 +16,5 @@ setup(
         'itsdangerous==0.17',
         'decorator==3.3.3',
         'iso8601==0.1.4',
-        'negotiate==0.0.1'
     ],
 )

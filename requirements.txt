@@ -1,5 +1,5 @@
 -e .
-greenlet==0.4.0
-gevent==0.13.7
-gunicorn==0.14.5
-psycopg2==2.4.5
+greenlet==0.4.12
+gevent==1.2.1
+gunicorn==19.7.0
+psycopg2==2.7

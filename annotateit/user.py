@@ -19,25 +19,6 @@ class LoginForm(Form):
     login    = f.TextField('Username/email', [v.Required()])
     password = f.PasswordField('Password',   [v.Required()])
 
-class SignupForm(Form):
-    username = f.TextField('Username', [
-        v.Length(min=3, max=128),
-        v.Regexp(r'^[^@:]*$', message="Username shouldn't contain '@' or ':'")
-    ])
-    email = html5.EmailField('Email address', [
-        v.Length(min=3, max=128),
-        v.Email(message="This should be a valid email address.")
-    ])
-    password = f.PasswordField('Password', [
-        v.Required(),
-        v.Length(min=8, message="It's probably best if your password is longer than 8 characters."),
-        v.EqualTo('confirm', message="Passwords must match.")
-    ])
-    confirm = f.PasswordField('Confirm password')
-
-    # Will only work if set up in config (see http://packages.python.org/Flask-WTF/)
-    captcha = f.RecaptchaField('Captcha')
-
 class ResetPasswordRequestForm(Form):
     login = f.TextField('Username/email', [v.Required()])
 
@@ -77,22 +58,6 @@ def logout():
     flash('You were logged out')
 
     return redirect(url_for('.login'))
-
-@user.route('/signup', methods=['GET', 'POST'])
-def signup():
-    form = SignupForm()
-
-    if form.validate_on_submit() and _add_user(form):
-        flash('Thank you for signing up!', 'success')
-        session['user'] = form.username.data
-        return redirect(url_for('.home'))
-
-    if request.method == 'POST':
-        flash('Errors found while attempting to sign up!', 'error')
-
-    captcha = 'RECAPTCHA_PUBLIC_KEY' in current_app.config
-
-    return render_template('user/signup.html', form=form, captcha=captcha)
 
 @user.route('/consumer/add')
 @util.require_user
